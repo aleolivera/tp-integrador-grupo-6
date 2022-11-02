@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegistrarUsuario2">
+    <TextView
+        android:id="@+id/tvAltaUsuario2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/alta_usuario"
+        android:textAlignment="center"
+        android:textSize="34sp"/>
+
+    <EditText
+        android:id="@+id/etDireccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:ems="10"
+        android:hint="@string/direccion"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:autofillHints="address"/>
+
+    <EditText
+        android:id="@+id/etLocalidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:ems="10"
+        android:hint="@string/localidad"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:autofillHints="city"/>
+
+    <Spinner
+        android:id="@+id/spProvincias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:minHeight="48dp"
+        android:contentDescription="Seleccione una provincia"
+        android:autofillHints="state"/>
+
+    <EditText
+        android:id="@+id/etTelefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:ems="10"
+        android:hint="@string/telefono"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:autofillHints="phone"/>
+
+    <Spinner
+        android:id="@+id/spTiposUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:minHeight="48dp"
+        android:contentDescription="Seleccione un tipo de usuario"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAtras2"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="16dp"
+            android:text="@string/btnAtras" />
+
+        <Button
+            android:id="@+id/btnFinalizar"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="16dp"
+            android:text="@string/btnFinalizar" />
+    </LinearLayout>
+
+</LinearLayout>

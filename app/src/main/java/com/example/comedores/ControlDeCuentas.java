@@ -1,0 +1,27 @@
+package com.example.comedores;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class ControlDeCuentas extends Fragment {
+
+    View view;
+
+    public ControlDeCuentas() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        view=inflater.inflate(R.layout.fragment_control_de_cuentas, container, false);
+
+
+        return view;
+    }
+}

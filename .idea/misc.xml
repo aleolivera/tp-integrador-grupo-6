@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/activity_principal_admin_comedor.xml" value="0.1358695652173913" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/activity_principal_supervisor.xml" value="0.22" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/activity_principal_usuario_final.xml" value="0.1358695652173913" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/activity_registrar_usuario1.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/activity_registrar_usuario2.xml" value="0.25885416666666666" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/fragment_control_de_cuentas.xml" value="0.21770833333333334" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/fragment_registrarse1.xml" value="0.23129251700680273" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/fragment_registrarse2.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/comedores/app/src/main/res/layout/fragment_reportes.xml" value="0.22" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
