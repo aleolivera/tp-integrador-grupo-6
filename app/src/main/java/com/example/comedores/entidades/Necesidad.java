@@ -7,18 +7,21 @@ public class Necesidad implements Serializable {
     private String descripcion;
     private Tipo tipo;
     private Estado estado;
+    private int prioridad;
 
     public Necesidad() { }
-    public Necesidad(String descripcion, Tipo tipo, Estado estado) {
+    public Necesidad(String descripcion, Tipo tipo, Estado estado,int prioridad) {
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.estado = estado;
+        this.prioridad= prioridad;
     }
-    public Necesidad(long id, String descripcion, Tipo tipo, Estado estado) {
+    public Necesidad(long id, String descripcion, Tipo tipo, Estado estado, int prioridad) {
         this.id = id;
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.estado = estado;
+        this.prioridad=prioridad;
     }
 
     public long getId() { return id; }
@@ -33,6 +36,9 @@ public class Necesidad implements Serializable {
     public Estado getEstado() { return estado; }
     public void setEstado(Estado estado) { this.estado = estado; }
 
+    public int getPrioridad() { return prioridad; }
+    public void setPrioridad(int prioridad) { this.prioridad = prioridad; }
+
     @Override
     public String toString() {
         return "Necesidad{" +
@@ -40,6 +46,7 @@ public class Necesidad implements Serializable {
                 ", descripcion='" + descripcion + '\'' +
                 ", tipo=" + tipo +
                 ", estado=" + estado +
+                ", prioridad=" + prioridad +
                 '}';
     }
 }

@@ -15,13 +15,14 @@ public class Usuario implements Serializable {
     protected String localidad;
     protected String provincia;
     protected String telefono;
+    protected Comedor comedor;
 
     public Usuario() { }
     public Usuario(long id, int tipo, String email,
                    String password, boolean estado, String nombre,
                    String apellido, String dni, String direccion,
                    String localidad, String provincia,
-                   String telefono) {
+                   String telefono,Comedor comedor) {
         this.id = id;
         this.tipo = tipo;
         this.email = email;
@@ -34,6 +35,7 @@ public class Usuario implements Serializable {
         this.localidad = localidad;
         this.provincia = provincia;
         this.telefono = telefono;
+        this.comedor=comedor;
     }
 
     public long getId() { return id; }
@@ -71,6 +73,9 @@ public class Usuario implements Serializable {
 
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
+
+    public Comedor getComedor() { return comedor; }
+    public void setComedor(Comedor comedor) { this.comedor = comedor; }
 
     @Override
     public String toString() {
