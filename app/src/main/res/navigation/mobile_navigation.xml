@@ -6,7 +6,7 @@
     app:startDestination="@id/nav_principal_admin">
     <fragment
         android:id="@+id/nav_principal_admin"
-        android:name="com.example.comedores.ui.homeAdminComedor.HomeAdminComedor"
+        android:name="com.example.comedores.ui.homeAdminComedor.HomeAdminComedorFragment"
         android:label="@string/menu_principal"
         tools:layout="@layout/fragment_home_admin_comedor" />
     <fragment

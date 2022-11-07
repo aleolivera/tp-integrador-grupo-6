@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.comedores.ControlDeCuentas;
+import com.example.comedores.ControlDeCuentasFragment;
 import com.example.comedores.Reportes;
 
 public class ViewPagerAdapter  extends FragmentStateAdapter {
@@ -18,7 +18,7 @@ public class ViewPagerAdapter  extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch(position){
-            case 0: return new ControlDeCuentas();
+            case 0: return new ControlDeCuentasFragment();
             default: return new Reportes();
         }
     }

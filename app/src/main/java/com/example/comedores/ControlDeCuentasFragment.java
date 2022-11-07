@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ControlDeCuentas extends Fragment {
+public class ControlDeCuentasFragment extends Fragment {
 
     View view;
 
-    public ControlDeCuentas() {
+    public ControlDeCuentasFragment() {
         // Required empty public constructor
     }
 

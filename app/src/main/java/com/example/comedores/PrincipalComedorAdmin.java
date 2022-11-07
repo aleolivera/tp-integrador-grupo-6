@@ -10,10 +10,12 @@ import android.widget.Toast;
 
 import com.example.comedores.R;
 import com.example.comedores.entidades.Usuario;
+import com.example.comedores.viewmodels.UsuarioViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,6 +32,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
     private Usuario usuario;
     private TextView tvNdHeaderTitulo;
     private TextView tvNdHeaderSubtitulo;
+    private UsuarioViewModel usuarioViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +61,19 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
                 .setOpenableLayout(drawer)
                 .build();
 
-        usuario= (Usuario) getIntent().getSerializableExtra("usuario");
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_principal_comedor_admin);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        usuario= (Usuario) getIntent().getSerializableExtra("usuario");
         cargarHeader(navigationView.getHeaderView(0));
-
+        cargarViewModel();
     }
 
+    private void cargarViewModel(){ //Carga el usuario en el activity para que sea accesible para los fragments
+        usuarioViewModel=new ViewModelProvider(this).get(UsuarioViewModel.class);
+        usuarioViewModel.setData(usuario);
+    }
     private void cargarHeader(View v) {
         View header = v;
         TextView tvNdHeaderTitulo= (TextView)header.findViewById(R.id.tvNdHeaderTitulo);
