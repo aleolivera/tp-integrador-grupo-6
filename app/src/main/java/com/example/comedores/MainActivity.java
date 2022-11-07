@@ -34,51 +34,61 @@ public class MainActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { Login(); }
+            public void onClick(View v) {
+                Login();
+            }
         });
         btnRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { irARegistrarUsuario(); }
+            public void onClick(View v) {
+                irARegistrarUsuario();
+            }
         });
     }
 
     private void Login() {
-        String mensaje= validarControles();
-        if(mensaje.compareTo("")==0){
+        String mensaje = validarControles();
+
+        if (mensaje.compareTo("") == 0) {
             cargarUsuario();
             ejecutarTask();
-        }
-        else Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
     private void cargarUsuario() {
-        usuario= new Usuario();
+        usuario = new Usuario();
         usuario.setId(0);
         usuario.setEmail(etCorreo.getText().toString());
         usuario.setPassword(etPassword.getText().toString());
     }
 
-    private String validarControles(){
-        String mensaje="";
-        String email= etCorreo.getText().toString();
-        String pass= etPassword.getText().toString();
-        if(email.isEmpty()||pass.isEmpty())
-            mensaje="Debe completar todos los campos";
+    private String validarControles() {
+        String mensaje = "";
+
+        //etCorreo.setText("leogerez@gmail.com");
+        //etPassword.setText("1234");
+
+        String email = etCorreo.getText().toString();
+        String pass = etPassword.getText().toString();
+        if (email.isEmpty() || pass.isEmpty())
+            mensaje = "Debe completar todos los campos";
         return mensaje;
     }
 
-    private void cargarUI(){
-        etCorreo=(EditText) findViewById(R.id.etCorreo);
-        etPassword= (EditText) findViewById(R.id.etPassword);
-        btnLogin=(Button)findViewById(R.id.btnLogin);
-        btnRegistrarse=(Button)findViewById(R.id.btnRegistrarse);
+    private void cargarUI() {
+        etCorreo = (EditText) findViewById(R.id.etCorreo);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnRegistrarse = (Button) findViewById(R.id.btnRegistrarse);
     }
-    private void ejecutarTask(){
-        DataLogin task = new DataLogin(usuario,this);
+
+    private void ejecutarTask() {
+        DataLogin task = new DataLogin(usuario, this);
         task.execute();
     }
+
     private void irARegistrarUsuario() {
-        Intent i= new Intent(this,RegistrarUsuario1.class);
+        Intent i = new Intent(this, RegistrarUsuario1.class);
         startActivity(i);
         finish();
     }

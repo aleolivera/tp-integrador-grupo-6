@@ -1,26 +1,31 @@
 package com.example.comedores.entidades;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Reporte implements Serializable {
     private long id;
-    private Usuario usuario;
+    private Usuario usuarioAlta;
     private Tipo tipo;
-    private LocalDate fechaAlta;
+    private Date fechaAlta;
     private String descripcion;
     private long idReportado;
     private String respuesta;
     private Estado estado;
 
-    public Reporte() { }
+    private Usuario UsuarioReportado;
+    private Necesidad NecesidadReportada;
+
+    public Reporte() {
+    }
 
     public Reporte(long id, Usuario usuario, Tipo tipo,
-                   LocalDate fechaAlta, String descripcion,
+                   Date fechaAlta, String descripcion,
                    long idReportado, String respuesta,
                    Estado estado) {
         this.id = id;
-        this.usuario = usuario;
+        this.usuarioAlta = usuario;
         this.tipo = tipo;
         this.fechaAlta = fechaAlta;
         this.descripcion = descripcion;
@@ -29,32 +34,89 @@ public class Reporte implements Serializable {
         this.estado = estado;
     }
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
+    public long getId() {
+        return id;
+    }
 
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-    public Tipo getTipo() { return tipo; }
-    public void setTipo(Tipo tipo) { this.tipo = tipo; }
+    public Usuario getUsuario() {
+        return usuarioAlta;
+    }
 
-    public LocalDate getFechaAlta() { return fechaAlta; }
-    public void setFechaAlta(LocalDate fechaAlta) { this.fechaAlta = fechaAlta; }
+    public void setUsuario(Usuario usuario) {
+        this.usuarioAlta = usuario;
+    }
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public Usuario getUsuarioRep() {
+        return UsuarioReportado;
+    }
 
-    public long getIdReportado() { return idReportado; }
-    public void setIdReportado(long idReportado) { this.idReportado = idReportado; }
+    public void setUsuarioRep(Usuario usuario) {
+        this.UsuarioReportado = usuario;
+    }
 
-    public String getRespuesta() { return respuesta; }
-    public void setRespuesta(String respuesta) { this.respuesta = respuesta; }
+    public Necesidad getNecesidadRep() {
+        return NecesidadReportada;
+    }
 
-    public Estado getEstado() { return estado; }
-    public void setEstado(Estado estado) { this.estado = estado; }
+    public void setNecesidadRep(Necesidad NecesidadReportada) {
+        this.NecesidadReportada = NecesidadReportada;
+    }
+
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public long getIdReportado() {
+        return idReportado;
+    }
+
+    public void setIdReportado(long idReportado) {
+        this.idReportado = idReportado;
+    }
+
+    public String getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
     @Override
     public String toString() {
-        return id + " - " + usuario.getEmail() +" - " +tipo.toString();
+        return "Id reporte: " + id + " Tipo: " + tipo.toString() + " Fecha de Alta:" + fechaAlta.toString() + "  Usuario Alta: " + usuarioAlta.getEmail() + " Estado: " + estado.getDescripcion();
     }
 }

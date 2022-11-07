@@ -12,8 +12,8 @@
         android:id="@+id/tabLayoutSupervidor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"
-        app:tabGravity="fill">
+        app:tabGravity="fill"
+        app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -31,11 +31,12 @@
         android:id="@+id/vpSupervisor"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <TextView
         android:id="@+id/tvPrincipalSupervisor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/supervisor"
         android:gravity="center"
+        android:text="@string/supervisor"
         android:textSize="36dp" />
 </LinearLayout>
