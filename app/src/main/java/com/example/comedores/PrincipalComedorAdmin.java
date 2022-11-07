@@ -74,8 +74,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         usuarioViewModel=new ViewModelProvider(this).get(UsuarioViewModel.class);
         usuarioViewModel.setData(usuario);
     }
-    private void cargarHeader(View v) {
-        View header = v;
+    private void cargarHeader(View header) {
         TextView tvNdHeaderTitulo= (TextView)header.findViewById(R.id.tvNdHeaderTitulo);
         TextView tvNdHeaderSubtitulo=(TextView)header.findViewById(R.id.tvNdHeaderSubtitulo);
         tvNdHeaderTitulo.setText("Bienvenido!");

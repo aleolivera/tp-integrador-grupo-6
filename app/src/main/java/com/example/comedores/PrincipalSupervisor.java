@@ -1,6 +1,7 @@
 package com.example.comedores;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -18,6 +19,7 @@ import com.example.comedores.adapters.ViewPagerAdapter;
 import com.example.comedores.conexion.DataReporte;
 import com.example.comedores.entidades.Reporte;
 import com.example.comedores.entidades.Usuario;
+import com.example.comedores.viewmodels.UsuarioViewModel;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 
 public class PrincipalSupervisor extends AppCompatActivity {
     public Usuario usuario;
+    private UsuarioViewModel usuarioViewModel;
     private TextView tvTitulo;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
@@ -36,11 +39,10 @@ public class PrincipalSupervisor extends AppCompatActivity {
         setContentView(R.layout.activity_principal_supervisor);
         usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 
-
+        cargarViewModel();
         cargarUI();
         cargarViewPagerAdapter();
         cargarTabLayout();
-
     }
 
     private void cargarTabLayout() {
@@ -78,5 +80,10 @@ public class PrincipalSupervisor extends AppCompatActivity {
 
         tvTitulo.setText("Supervisor: " + usuario.getNombre() + " " + usuario.getApellido());
 
+    }
+
+    private void cargarViewModel(){ //Carga el usuario en el activity para que sea accesible para los fragments
+        usuarioViewModel=new ViewModelProvider(this).get(UsuarioViewModel.class);
+        usuarioViewModel.setData(usuario);
     }
 }

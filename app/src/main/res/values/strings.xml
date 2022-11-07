@@ -38,6 +38,7 @@
 
     <string name="titulo_admin">Principal Administrador</string>
     <string name="titulo_mis_necesidades">Mis Necesidades</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
