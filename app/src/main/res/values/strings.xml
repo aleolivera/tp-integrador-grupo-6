@@ -1,4 +1,5 @@
 <resources>
+    <string name="btnDbg">DBG</string>
     <string name="app_name">comedores</string>
     <string name="login">Login</string>
     <string name="correo_electronico">Correo Electronico</string>
@@ -41,5 +42,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="avatar">Avatar usuario</string>
+    <string name="update">Actualizar</string>
 
 </resources>
