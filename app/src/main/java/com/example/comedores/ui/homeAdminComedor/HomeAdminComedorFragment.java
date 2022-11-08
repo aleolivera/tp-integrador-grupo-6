@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.example.comedores.viewmodels.UsuarioViewModel;
 public class HomeAdminComedorFragment extends Fragment {
     private UsuarioViewModel viewModel;
     private TextView tvNombreComedor,tvProvincia,tvLocalidad,tvDireccion,tvTelefono,tvRenacom,tvResponsable,tvEstado;
+    private Button btnAgregarComedor;
     public Usuario usuario;
 
     @Override
@@ -37,8 +39,12 @@ public class HomeAdminComedorFragment extends Fragment {
         obtenerUsuario();
 
         cargarUI(view);
-        iniciarObserverViewModel();
-        Toast.makeText(getContext(), "Fragment principal", Toast.LENGTH_SHORT).show();
+        if(usuario.getComedor()==null)
+            ocultarComedor();
+        else{
+            ocultarAgregarComedor();
+            iniciarObserverViewModel();
+        }
     }
 
     private void cargarUI(View view) {
@@ -50,10 +56,33 @@ public class HomeAdminComedorFragment extends Fragment {
         tvRenacom=(TextView)view.findViewById(R.id.tvRenacom);
         tvResponsable=(TextView)view.findViewById(R.id.tvResponsable);
         tvEstado=(TextView)view.findViewById(R.id.tvEstado);
+        btnAgregarComedor=(Button)view.findViewById(R.id.btnAgregarComedor);
+        btnAgregarComedor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Falta Funcionalidad", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void ocultarComedor() {
+        tvNombreComedor.setVisibility(View.GONE);
+        tvProvincia.setVisibility(View.GONE);
+        tvLocalidad.setVisibility(View.GONE);
+        tvDireccion.setVisibility(View.GONE);
+        tvTelefono.setVisibility(View.GONE);
+        tvRenacom.setVisibility(View.GONE);
+        tvResponsable.setVisibility(View.GONE);
+        tvEstado.setVisibility(View.GONE);
+    }
+
+    private void ocultarAgregarComedor() {
+        btnAgregarComedor.setVisibility(View.GONE);
     }
 
     private void obtenerUsuario() {
         viewModel= new ViewModelProvider(requireActivity()).get(UsuarioViewModel.class);
+        usuario=viewModel.getData().getValue();
     }
 
     private void iniciarObserverViewModel() {

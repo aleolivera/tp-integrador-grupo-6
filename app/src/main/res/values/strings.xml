@@ -17,6 +17,7 @@
     <string name="btnSiguiente">Siguiente</string>
     <string name="btnFinalizar">Finalizar</string>
     <string name="btnAtras">Atras</string>
+    <string name="btnAgregar">Agregar Comedor</string>
     <string name="control_de_cuentas">Control de cuentas</string>
     <string name="reportes">Reportes</string>
     <string name="usuario_final">Principal Usuario Final</string>

@@ -30,13 +30,14 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityPrincipalComedorAdminBinding binding;
     private Usuario usuario;
-    private TextView tvNdHeaderTitulo;
-    private TextView tvNdHeaderSubtitulo;
     private UsuarioViewModel usuarioViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        usuario= (Usuario) getIntent().getSerializableExtra("usuario");
+        cargarViewModel();
 
         binding = ActivityPrincipalComedorAdminBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -64,10 +65,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_principal_comedor_admin);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        usuario= (Usuario) getIntent().getSerializableExtra("usuario");
         cargarHeader(navigationView.getHeaderView(0));
-        cargarViewModel();
     }
 
     private void cargarViewModel(){ //Carga el usuario en el activity para que sea accesible para los fragments

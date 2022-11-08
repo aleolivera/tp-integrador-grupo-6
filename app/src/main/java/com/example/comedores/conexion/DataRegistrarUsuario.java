@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 public class DataRegistrarUsuario extends AsyncTask<String, Void, String> {
     private Context context;
     private Usuario usuario;
-    private String response;
 
     public DataRegistrarUsuario(Context context,Usuario usuario){
         this.context= context;
@@ -22,7 +21,7 @@ public class DataRegistrarUsuario extends AsyncTask<String, Void, String> {
     }
     @Override
     protected String doInBackground(String... strings) {
-        response="";
+        String response="";
         String query="insert into usuarios(nombre, apellido,email,password,tipo_id,dni,direccion,localidad,provincia,telefono,estado)\n" +
                 "values(?,?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -57,7 +56,7 @@ public class DataRegistrarUsuario extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String response) {
         Toast.makeText(this.context, response, Toast.LENGTH_SHORT).show();
     }
 }

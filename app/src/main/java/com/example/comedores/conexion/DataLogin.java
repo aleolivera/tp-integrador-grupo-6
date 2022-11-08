@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class DataLogin extends AsyncTask<String,Void,String> {
-    private String mensaje;
+
     private Usuario usuario;
     private Context context;
 
@@ -32,6 +32,23 @@ public class DataLogin extends AsyncTask<String,Void,String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        String response="";
+        response=cargarUsuario(response);
+        if(usuario.getTipo()==2)
+            cargarComedor(response);
+        if(usuario.getComedor()!=null)
+            cargarNecesidades(response);
+        return response;
+    }
+
+    @Override
+    protected void onPostExecute(String response) {
+        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+        if(usuario.getId()!=0){
+            redirigir();
+        }
+    }
+    private String cargarUsuario(String mensaje){
         String query="SELECT * FROM usuarios WHERE email = ? and password=?";
         try {
             Class.forName(DataDB.DRIVER);
@@ -60,11 +77,6 @@ public class DataLogin extends AsyncTask<String,Void,String> {
                 mensaje="Correo o password incorrectos";
             rs.close();
             con.close();
-            if(usuario.getTipo()==2)
-                cargarComedor();
-            if(usuario.getComedor()!=null)
-                cargarNecesidades();
-
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -75,14 +87,7 @@ public class DataLogin extends AsyncTask<String,Void,String> {
         }
     }
 
-    @Override
-    protected void onPostExecute(String s) {
-        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
-        if(usuario.getId()!=0){
-            redirigir();
-        }
-    }
-    private void cargarComedor(){
+    private String cargarComedor(String mensaje){
         String query=
                 "SELECT c.id,c.usuario_id,c.renacom,c.nombre,c.direccion,c.localidad,c.provincia,"+
                 "c.telefono,c.nombre_responsable,c.apellido_responsable,c.estado_id,e.descripcion "+
@@ -120,8 +125,11 @@ public class DataLogin extends AsyncTask<String,Void,String> {
             e.printStackTrace();
             mensaje="Error al cargar el comedor";
         }
+        finally {
+            return mensaje;
+        }
     }
-    private void cargarNecesidades(){
+    private String cargarNecesidades(String mensaje){
         String query=
                 "SELECT n.id,n.tipo_id,t.descripcion,n.estado_id,e.descripcion,n.descripcion,n.prioridad FROM necesidades n "+
                 "INNER JOIN comedores_x_necesidades cxn ON n.id=cxn.necesidad_id "+
@@ -153,6 +161,9 @@ public class DataLogin extends AsyncTask<String,Void,String> {
         catch (Exception e) {
             e.printStackTrace();
             mensaje="Error al cargar las necesidades";
+        }
+        finally {
+            return mensaje;
         }
     }
 

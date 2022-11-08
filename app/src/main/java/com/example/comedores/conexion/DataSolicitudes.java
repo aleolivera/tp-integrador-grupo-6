@@ -155,7 +155,7 @@ public class DataSolicitudes extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String s) {
-        if(mensaje.compareTo("")==0)
+        if(mensaje.compareTo("")!=0)
             Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
 
         if(mensaje.compareTo("solicitudes cargadas")==0){
