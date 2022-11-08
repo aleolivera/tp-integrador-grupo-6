@@ -45,6 +45,8 @@
 
     <string name="avatar">Avatar usuario</string>
     <string name="update">Actualizar</string>
+    <string name="title_activity_buscar_comedor">BuscarComedor</string>
+    <string name="title_activity_buscar_comedor_map">BuscarComedorMap</string>
 
     <string name="btn_ver">Ver</string>
 
