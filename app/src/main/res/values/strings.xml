@@ -46,4 +46,6 @@
     <string name="avatar">Avatar usuario</string>
     <string name="update">Actualizar</string>
 
+    <string name="btn_ver">Ver</string>
+
 </resources>
