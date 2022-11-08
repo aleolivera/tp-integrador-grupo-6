@@ -40,19 +40,15 @@ public class ListViewSolicitudesAdapter extends ArrayAdapter<Solicitud> {
         Solicitud s= listaSolicitudes.get(position);
         TextView tvRenacom= (TextView)view.findViewById(R.id.tvRenacom);
         TextView tvNombreComedor=(TextView) view.findViewById(R.id.tvNombreComedor);
+        TextView tvFechaSolicitud= (TextView)view.findViewById(R.id.tvFechaSolicitud);
+        TextView tvIdSolicitud= (TextView)view.findViewById(R.id.tvIdSolicitud);
 
-        tvRenacom.setText(String.valueOf(s.getComedor().getRenacom()));
-        tvNombreComedor.setText(s.getComedor().getNombre());
-
-        Button btnVer=(Button) view.findViewById(R.id.btnVer);
-
-        btnVer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), s.getComedor().getNombre(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        tvRenacom.setText("Renacom: "+String.valueOf(s.getComedor().getRenacom()));
+        tvNombreComedor.setText("Comedor: "+s.getComedor().getNombre());
+        tvFechaSolicitud.setText("Fecha: "+s.getFechaAlta().toString());
+        tvIdSolicitud.setText("ID: "+String.valueOf(s.getId()));
 
         return view;
     }
+
 }

@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.comedores.adapters.ListViewSolicitudesAdapter;
+import com.example.comedores.conexion.DataSolicitudes;
 import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Solicitud;
 import com.example.comedores.entidades.Usuario;
@@ -30,7 +32,7 @@ public class ControlDeCuentasFragment extends Fragment {
     private View view;
     private UsuarioViewModel viewModel;
     private Usuario usuario;
-    private List<Solicitud> listaSolicitudes= new ArrayList<Solicitud>();
+    private List<Solicitud> listaSolicitudes;
     private ListView lvSolicitudes;
 
     public ControlDeCuentasFragment() {
@@ -50,27 +52,40 @@ public class ControlDeCuentasFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         usuario=viewModel.getData().getValue();
 
+        lvSolicitudes=(ListView) view.findViewById(R.id.lvSolicitudes);
+        cargarListView(false);
+    }
+
+    private void cargarListView(Boolean estado) {
+        DataSolicitudes task = new DataSolicitudes(getContext(),listaSolicitudes,lvSolicitudes);
+        task.execute("listarSolicitudes",estado.toString());
+    }
+
+    private void simularLista() {
         Comedor c1= new Comedor();
         Comedor c2= new Comedor();
         Comedor c3= new Comedor();
+        Comedor c4= new Comedor();
+
         c1.setId(1);
         c1.setNombre("comedor 1");
         c1.setRenacom(1234);
         c2.setId(2);
         c2.setNombre("comedor 2");
         c2.setRenacom(4321);
-        c3.setId(2);
-        c3.setNombre("comedor 2");
-        c3.setRenacom(4321);
+        c3.setId(3);
+        c3.setNombre("comedor 3");
+        c3.setRenacom(9876);
+        c4.setId(4);
+        c4.setNombre("comedor 4");
+        c4.setRenacom(6789);
 
         listaSolicitudes=new ArrayList<Solicitud>();
         listaSolicitudes.add(new Solicitud(1,c1, LocalDate.parse("2019-10-11"),false,0));
         listaSolicitudes.add(new Solicitud(2,c2, LocalDate.parse("2018-01-12"),false,0));
-        listaSolicitudes.add(new Solicitud(3,c2, LocalDate.parse("2018-01-12"),false,0));
-
-        ListViewSolicitudesAdapter adapter= new ListViewSolicitudesAdapter(getContext(),R.layout.item_row_solicitudes,listaSolicitudes);
-        lvSolicitudes=(ListView) view.findViewById(R.id.lvSolicitudes);
-        lvSolicitudes.setAdapter(adapter);
-
+        listaSolicitudes.add(new Solicitud(3,c3, LocalDate.parse("2020-04-22"),false,0));
+        listaSolicitudes.add(new Solicitud(4,c4, LocalDate.parse("2021-08-30"),false,0));
     }
+
+
 }
