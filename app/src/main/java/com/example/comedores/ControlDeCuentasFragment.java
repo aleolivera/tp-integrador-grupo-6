@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -34,6 +36,7 @@ public class ControlDeCuentasFragment extends Fragment {
     private Usuario usuario;
     private List<Solicitud> listaSolicitudes;
     private ListView lvSolicitudes;
+    private Spinner spEstados;
 
     public ControlDeCuentasFragment() {
         // Required empty public constructor
@@ -46,14 +49,56 @@ public class ControlDeCuentasFragment extends Fragment {
         viewModel= new ViewModelProvider(requireActivity()).get(UsuarioViewModel.class);
         return view;
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         usuario=viewModel.getData().getValue();
+        cargarUI();
+        iniciarListView();
+        iniciarSpinner();
+    }
 
+    private void cargarUI() {
         lvSolicitudes=(ListView) view.findViewById(R.id.lvSolicitudes);
+        spEstados= (Spinner) view.findViewById(R.id.spEstadoSolicitud);
+    }
+    private void iniciarSpinner(){
+        String[]estados={"Pendiente","Habilitado"};
+        ArrayAdapter<String>adapter= new ArrayAdapter<String>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,estados);
+        spEstados.setAdapter(adapter);
+        spEstados.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        cargarListView(false);
+                        break;
+                    case 1:
+                        cargarListView(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+    }
+
+    private void iniciarListView() {
         cargarListView(false);
+        lvSolicitudes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                verSolicitud((Solicitud)lvSolicitudes.getItemAtPosition(position));
+            }
+        });
+    }
+
+    private void verSolicitud(Solicitud solicitud){
+        SolicitudDialog dialog = new SolicitudDialog(solicitud,usuario.getId());
+        dialog.show(getActivity().getSupportFragmentManager(),"solicitud dialog");
     }
 
     private void cargarListView(Boolean estado) {

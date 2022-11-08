@@ -41,16 +41,17 @@ public class DataSolicitudes extends AsyncTask<String,Void,String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        String operacion= strings[0];
-        String parametro1= strings[1];
 
-        switch(operacion){
+
+        switch(strings[0]){
             case "listarSolicitudes":
-                listarSolicitudes(parametro1);
+                listarSolicitudes(strings[1]);
                 break;
 
-            case "habilitarComedor":
-                habilitarComedor();
+            case "modificarSolicitud":
+                modificarSolicitud();
+                if(mensaje=="")
+                    modificarComedor();
                 break;
 
             default:
@@ -109,12 +110,6 @@ public class DataSolicitudes extends AsyncTask<String,Void,String> {
             e.printStackTrace();
             mensaje="Error al cargar las solicitudes";
         }
-    }
-
-    private void habilitarComedor() {
-        modificarSolicitud();
-        if(mensaje=="")
-            modificarComedor();
     }
 
     private void modificarSolicitud() {
