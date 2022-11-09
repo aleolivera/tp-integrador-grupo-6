@@ -13,9 +13,13 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.comedores.R;
+import com.example.comedores.adapters.ListViewReportesAdapter;
+import com.example.comedores.adapters.ListViewSolicitudesAdapter;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Necesidad;
 import com.example.comedores.entidades.Reporte;
+import com.example.comedores.entidades.Solicitud;
 import com.example.comedores.entidades.Tipo;
 import com.example.comedores.entidades.Usuario;
 
@@ -26,33 +30,67 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataReporte extends AsyncTask<String, Void, String> {
 
     private String mensaje;
     private Usuario usuario;
     private Context context;
+    private Reporte reporte;
 
-    private ListView ReportesLV;
-    private ArrayList<Reporte> listaReportes;
+    private ListView lvReportes;
+    private List<Reporte> listaReportes;
 
     public DataReporte(Usuario usuario, Context context) {
         this.usuario = usuario;
         this.context = context;
     }
 
-
-    public DataReporte(Usuario usuario, Context context, ListView ReportesLV) {
+    public DataReporte(Usuario usuario, Context context, Reporte reporte) {
         this.usuario = usuario;
         this.context = context;
-        this.ReportesLV = ReportesLV;
-        this.listaReportes = new ArrayList<Reporte>();
+        this.reporte = reporte;
+    }
+
+    public DataReporte(Context context, List<Reporte> listaReportes, ListView ReportesLV) {
+        this.usuario = usuario;
+        this.context = context;
+        this.lvReportes = ReportesLV;
+        this.listaReportes = listaReportes;
+    }
+
+
+    public DataReporte(Usuario usuario, Context context, List<Reporte> listaReportes, ListView ReportesLV) {
+        this.usuario = usuario;
+        this.context = context;
+        this.lvReportes = ReportesLV;
+        this.listaReportes = listaReportes;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected String doInBackground(String... strings) {
-        String response = "";
+
+        switch (strings[0]) {
+            case "ListarReporte":
+                ReportesListar(strings);
+                break;
+
+            case "AltaReporte":
+                //modificarSolicitud();
+
+
+                break;
+
+            default:
+                break;
+        }
+        return mensaje;
+
+    }
+
+    protected void ReportesListar(String... strings) {
 
         String query = "select r.id, r.fecha_Alta, tr.id as TipoId, tr.descripcion as Tipo, er.id as EstadoId, er.descripcion as Estado, r.descripcion,r.respuesta, IFNULL(r.reportado_id,0) as IdReportado, \n" +
                 "\tu.id as usuarioId, u.email , u.nombre , u.apellido\n" +
@@ -64,17 +102,18 @@ public class DataReporte extends AsyncTask<String, Void, String> {
                 "  inner join usuarios u on u.id = uxr.usuario_id \n" +
                 "\n" +
                 "where \n" +
-                "\t(u.id = " + strings[0] + " or  " + strings[0] + " = 0)\n" +
-                "\tand (r.Id = " + strings[1] + " or  " + strings[1] + " = 0)\n" +
-                "\tand (er.Id = " + strings[2] + " or " + strings[2] + " = 0)\n" +
-                "\tand (tr.id = " + strings[3] + " or " + strings[3] + " = 0)";
+                "\t(u.id = " + strings[1] + " or  " + strings[1] + " = 0)\n" +
+                "\tand (r.Id = " + strings[2] + " or  " + strings[2] + " = 0)\n" +
+                "\tand (er.Id = " + strings[3] + " or " + strings[3] + " = 0)\n" +
+                "\tand (tr.id = " + strings[4] + " or " + strings[4] + " = 0)" +
+                "\t order by r.id desc ";
 
         try {
             Class.forName(DataDB.DRIVER);
             Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-
+            listaReportes = new ArrayList<Reporte>();
 
             while (resultSet.next()) {
 
@@ -135,40 +174,125 @@ public class DataReporte extends AsyncTask<String, Void, String> {
                 listaReportes.add(reporte);
             }
 
+            if (listaReportes.size() > 0) {
+                mensaje = "Reportes cargados";
+            }
+            resultSet.close();
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
-            response = "Error de conexion";
+            mensaje = "Error al cargar los Reportes";
         }
-        return response;
+    }
+
+    protected void Reporte_Alta() {
+
+        if (VerificarReporteExistente(reporte.getUsuario().getId(), reporte.getTipo().getId(), reporte.getEstado().getId())) {
+
+            mensaje = "";
+            String Query = "INSERT INTO `reportes` ( `tipo_id`, `estado_id`, `fecha_alta`, `descripcion`, `respuesta`, `reportado_id`) \n" +
+                    "VALUES (?,?,?,?,NULL,?)";
+            try {
+                Class.forName(DataDB.DRIVER);
+                Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
+
+                PreparedStatement pst = con.prepareStatement(Query);
+                pst.setInt(1, reporte.getTipo().getId());
+                pst.setInt(2, reporte.getEstado().getId());
+                //pst.getMetaData(3,getdate);
+                pst.setString(4, reporte.getDescripcion());
+                pst.setString(5, reporte.getRespuesta());
+                pst.setInt(6, (int) reporte.getIdReportado());
+
+                int filas = pst.executeUpdate();
+                if (filas > 0) {
+
+                    mensaje = "ReporteAlta";
+
+                } else {
+                    mensaje = "ReporteAltaError";
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                mensaje = e.getMessage();
+            }
+        } else {
+            mensaje = "El reporte ya existe";
+        }
+
+    }
+
+    protected boolean VerificarReporteExistente(long UsuarioAltaId, int ReportadoId, int TipoId) {
+        String query = "select cout(r.id)\n" +
+                "from reportes r\n" +
+                "  inner join usuarios_x_reportes uxr on uxr.reporte_id  = r.id \n" +
+                "  inner join tipos_reporte tr on tr.id = r.tipo_Id \n" +
+                "where \n" +
+                "\t(u.id = " + UsuarioAltaId + ")\n" +
+                "\tand (r.reportado_id = " + ReportadoId + ")\n" +
+                "\tand (tr.id = " + TipoId + ")";
+
+        try {
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                return false;
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "Error al buscar Reporte existente";
+        }
+
+        return true;
+
+    }
+
+    protected void ReportePorUsuarioAlta() {
+
     }
 
     @Override
     protected void onPostExecute(String Response) {
-        if (Response == "") {
 
-            ArrayAdapter<Reporte> adapter = new ArrayAdapter<Reporte>(context, android.R.layout.simple_list_item_1, listaReportes);
+        if (mensaje.compareTo("") != 0)
+            Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
 
-            ReportesLV.setAdapter(adapter);
-
-            ReportesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String Info = "Reporte Id: " + listaReportes.get(i).getId() + "\n";
-                    Info += " Fecha: " + listaReportes.get(i).getFechaAlta().toString() + "\n";
-                    Info += " Estado: " + listaReportes.get(i).getEstado().getDescripcion().toString() + "\n";
-                    Info += " Tipo: " + listaReportes.get(i).getTipo().getDescripcion().toString() + "\n";
-                    Info += " Usuario Alta: " + listaReportes.get(i).getUsuario().getEmail().toString() + " " + listaReportes.get(i).getUsuario().getApellido().toString() + " - " + listaReportes.get(i).getUsuario().getNombre().toString() + "\n";
-
-
-                    Toast.makeText(context, Info, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else {
-            Toast.makeText(context, Response, Toast.LENGTH_SHORT).show();
-
+        if (mensaje.compareTo("Reportes cargados") == 0) {
+            ListViewReportesAdapter adapter = new ListViewReportesAdapter(context, R.layout.item_row_reportes, listaReportes);
+            lvReportes.setAdapter(adapter);
         }
+
+//        if (Response == "") {
+//
+//            ArrayAdapter<Reporte> adapter = new ArrayAdapter<Reporte>(context, android.R.layout.simple_list_item_1, listaReportes);
+//
+//            lvReportes.setAdapter(adapter);
+//
+//            lvReportes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    String Info = "Reporte Id: " + listaReportes.get(i).getId() + "\n";
+//                    Info += " Fecha: " + listaReportes.get(i).getFechaAlta().toString() + "\n";
+//                    Info += " Estado: " + listaReportes.get(i).getEstado().getDescripcion().toString() + "\n";
+//                    Info += " Tipo: " + listaReportes.get(i).getTipo().getDescripcion().toString() + "\n";
+//                    Info += " Usuario Alta: " + listaReportes.get(i).getUsuario().getEmail().toString() + " " + listaReportes.get(i).getUsuario().getApellido().toString() + " - " + listaReportes.get(i).getUsuario().getNombre().toString() + "\n";
+//
+//
+//                    Toast.makeText(context, Info, Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//        } else {
+//            Toast.makeText(context, Response, Toast.LENGTH_SHORT).show();
+//
+//        }
 
     }
 

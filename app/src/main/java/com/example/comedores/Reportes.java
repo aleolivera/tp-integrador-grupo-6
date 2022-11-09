@@ -2,7 +2,10 @@ package com.example.comedores;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,22 +20,30 @@ import android.widget.Toast;
 
 import com.example.comedores.conexion.DataEstados;
 import com.example.comedores.conexion.DataReporte;
+import com.example.comedores.conexion.DataSolicitudes;
 import com.example.comedores.conexion.DataTipos;
 import com.example.comedores.entidades.Estado;
+import com.example.comedores.entidades.Reporte;
+import com.example.comedores.entidades.Solicitud;
 import com.example.comedores.entidades.Tipo;
 import com.example.comedores.entidades.Usuario;
+import com.example.comedores.viewmodels.UsuarioViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Reportes extends Fragment {
-    private Usuario usuario;
 
+    private View view;
+    private UsuarioViewModel viewModel;
+
+    private Usuario usuario;
     private EditText etReportId;
     public Button btnBuscar;
     private Spinner spnTipo;
     private Spinner spnEstado;
-    private ListView listViewReportes;
+    private ListView lvReportes;
+    private List<Reporte> listaReportes;
     DataTipos dtipos;
 
     @Override
@@ -41,44 +52,60 @@ public class Reportes extends Fragment {
         // Inflate the layout for this fragment
 
         View viewRoot = inflater.inflate(R.layout.fragment_reportes, container, false);
+        view = inflater.inflate(R.layout.fragment_reportes, container, false);
 
-        usuario = (Usuario) getActivity().getIntent().getSerializableExtra("usuario");
+        viewModel = new ViewModelProvider(requireActivity()).get(UsuarioViewModel.class);
+        return view;
+    }
 
-        cargarUI(viewRoot);
-
-        ejecutarTask(listViewReportes, "0", "0", "1", "0");
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        usuario = viewModel.getData().getValue();
+        cargarUI();
+        iniciarListView();
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 BusquedaFiltro();
             }
         });
 
 
-        return viewRoot;
+    }
+
+    private void iniciarListView() {
+        cargarListView("0", "0", "1", "0");
+        lvReportes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //VerlvReportes((Reportes) lvReportes.getItemAtPosition(position));
+            }
+        });
+    }
+
+    private void cargarListView(String IdUsuario, String IdReporte, String EstadoId, String TipoId) {
+
+        DataReporte task = new DataReporte(getContext(), listaReportes, lvReportes);
+
+        task.execute("ListarReporte", IdUsuario, IdReporte, EstadoId, TipoId);
     }
 
 
-    private void ejecutarTask(ListView ReportesLV, String IdUsuario, String IdReporte, String EstadoId, String TipoId) {
-        DataReporte task = new DataReporte(usuario, getContext(), ReportesLV);
-        task.execute(IdUsuario, IdReporte, EstadoId, TipoId);
-    }
-
-    private void cargarUI(View view) {
+    private void cargarUI() {
         etReportId = (EditText) view.findViewById(R.id.etReporteId);
 
-        spnTipo = (Spinner) view.findViewById(R.id.spnTipo);
+        spnTipo = (Spinner) view.findViewById(R.id.spTipoReporte);
         DataTipos taskTipos = new DataTipos(spnTipo, getContext());
         taskTipos.execute("2");//Obtengo los tipos de reporte
 
-        spnEstado = (Spinner) view.findViewById(R.id.spnEstado);
+        spnEstado = (Spinner) view.findViewById(R.id.spEstadoReporte);
         DataEstados taskEstado = new DataEstados(spnEstado, getContext());
         taskEstado.execute("2");//Obtengo los tipos de reporte
 
-        btnBuscar = (Button) view.findViewById(R.id.btnBuscarReportes);
-        listViewReportes = (ListView) view.findViewById(R.id.listViewReportes);
+        btnBuscar = (Button) view.findViewById(R.id.btnBuscarReporte);
+        lvReportes = (ListView) view.findViewById(R.id.lvReportes);
     }
 
     private void BusquedaFiltro() {
@@ -94,7 +121,7 @@ public class Reportes extends Fragment {
         Tipo tSelect = (Tipo) spnTipo.getSelectedItem();
         Integer TipoId = tSelect.getId();
 
-        ejecutarTask(listViewReportes, "0", IdReporte, EstadoId.toString(), TipoId.toString());
+        cargarListView("0", IdReporte, EstadoId.toString(), TipoId.toString());
 
     }
 }

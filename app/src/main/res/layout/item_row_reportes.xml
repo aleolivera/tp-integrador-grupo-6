@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvReporteId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="ID: 1"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvFechaAltaReporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Fecha: 2020-12-20"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvTipoReporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Tipo: Usuario"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvEstadoReporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Estado: En proceso"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvUsuarioAltaReporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Uusario: leoxgerez@gmail.com"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvPresionar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Presione para ver detalles"
+        android:textSize="15dp" />
+
+</LinearLayout>
