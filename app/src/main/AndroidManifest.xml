@@ -39,55 +39,55 @@
              "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
         -->
         <!--
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+          <meta-data
+              android:name="com.google.android.geo.API_KEY"
+              android:value="${MAPS_API_KEY}" />
+  -->
+          <activity
+              android:name=".BuscarComedorMap"
+              android:exported="false"
+              android:label="@string/title_activity_buscar_comedor_map" />
+          <activity
+              android:name=".PerfilUser"
+              android:exported="false">
+              <meta-data
+                  android:name="android.app.lib_name"
+                  android:value="" />
+          </activity>
+          <activity
+              android:name=".Debug"
+              android:exported="false">
+              <meta-data
+                  android:name="android.app.lib_name"
+                  android:value="" />
+          </activity>
 
-        <activity
-            android:name=".BuscarComedorMap"
-            android:exported="false"
-            android:label="@string/title_activity_buscar_comedor_map" />
-        <activity
-            android:name=".PerfilUser"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Debug"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        -->
-        <activity
-            android:name=".PrincipalComedorAdmin"
-            android:exported="false"
-            android:label="@string/title_activity_principal_comedor_admin"
-            android:theme="@style/Theme.Comedores.NoActionBar" />
-        <activity
-            android:name=".PrincipalUsuarioFinal"
-            android:exported="false" />
-        <activity
-            android:name=".PrincipalSupervisor"
-            android:exported="false" />
-        <activity
-            android:name=".RegistrarUsuario2"
-            android:exported="false" />
-        <activity
-            android:name=".RegistrarUsuario1"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+          <activity
+              android:name=".PrincipalComedorAdmin"
+              android:exported="false"
+              android:label="@string/title_activity_principal_comedor_admin"
+              android:theme="@style/Theme.Comedores.NoActionBar" />
+          <activity
+              android:name=".PrincipalUsuarioFinal"
+              android:exported="false" />
+          <activity
+              android:name=".PrincipalSupervisor"
+              android:exported="false" />
+          <activity
+              android:name=".RegistrarUsuario2"
+              android:exported="false" />
+          <activity
+              android:name=".RegistrarUsuario1"
+              android:exported="false" />
+          <activity
+              android:name=".MainActivity"
+              android:exported="true">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+          </activity>
+      </application>
 
-</manifest>
+  </manifest>
