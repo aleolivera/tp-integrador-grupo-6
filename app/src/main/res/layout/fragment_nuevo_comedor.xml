@@ -197,6 +197,10 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:text="@string/registrarse" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
