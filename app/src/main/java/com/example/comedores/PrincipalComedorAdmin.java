@@ -66,6 +66,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         cargarHeader(navigationView.getHeaderView(0));
+        verificarComedor(navigationView);
     }
 
     private void cargarViewModel(){ //Carga el usuario en el activity para que sea accesible para los fragments
@@ -107,6 +108,18 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         Intent i= new Intent(this,MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    private void verificarComedor(NavigationView navigationView) {
+        if(usuario.getComedor()!=null) {
+            Menu menu = navigationView.getMenu();
+            MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
+            itemAgregarComedor.setVisible(false);
+        } else {
+            Menu menu = navigationView.getMenu();
+            MenuItem itemMisNecesidades = menu.findItem(R.id.nav_mis_necesidades);
+            itemMisNecesidades.setVisible(false);
+        }
     }
 
 
