@@ -1,5 +1,7 @@
 package com.example.comedores;
 
+import static java.security.AccessController.getContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
@@ -9,12 +11,19 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.comedores.conexion.DataComedores;
+import com.example.comedores.conexion.DataReporte;
+import com.example.comedores.entidades.Comedor;
+import com.example.comedores.entidades.Reporte;
+
+import java.util.List;
+
 public class BuscarComedor extends AppCompatActivity {
 
-    ListView lstComedores;
-    String[] comedores = new String[] {"Montgomery", "Kentucky", "Carolina"};
+    private ListView lvComedores;
+    private List<Comedor> listaComedores;
 
-    ArrayAdapter<String> arrayAdapter;
+    ArrayAdapter<Comedor> arrayAdapter;
 
 
     @Override
@@ -22,10 +31,14 @@ public class BuscarComedor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_comedor);
 
-        lstComedores = findViewById(R.id.lstComedores);
+        lvComedores = findViewById(R.id.lstComedores);
 
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, comedores);
-        lstComedores.setAdapter(arrayAdapter);
+        DataComedores task = new DataComedores(listaComedores, lvComedores);
+
+        task.execute("listarComedores");
+/*
+        arrayAdapter = new ArrayAdapter<Comedor>(this, android.R.layout.simple_list_item_1, task.getComedores());
+        lstComedores.setAdapter(arrayAdapter);*/
     }
 
     @Override
