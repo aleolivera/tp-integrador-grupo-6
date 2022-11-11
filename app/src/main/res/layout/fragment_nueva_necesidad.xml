@@ -6,9 +6,114 @@
     tools:context=".ui.nuevaNecesidad.NuevaNecesidadFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nueva necesidad"
+            android:textAlignment="center"
+            android:textSize="21sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tipo de necesidad" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <Spinner
+            android:id="@+id/spTipoNecesidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="tipo de necesidad"
+            android:minHeight="48dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="prioridad de la necesidad" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/sbPrioridad"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="355dp"
+                android:layout_height="match_parent"
+                android:max="4"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tvNumeroPrioridad"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="1"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingrese una descripcion" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="261dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="descripcion de la necesidad"
+            android:inputType="textMultiLine" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <Button
+            android:id="@+id/btnAgregarNecesidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="agregar necesidad" />
+
+    </LinearLayout>
 
 </FrameLayout>
