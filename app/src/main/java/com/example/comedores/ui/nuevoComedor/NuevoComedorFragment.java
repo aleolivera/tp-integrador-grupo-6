@@ -19,6 +19,7 @@ import com.example.comedores.conexion.DataComedores;
 import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Usuario;
+import com.example.comedores.util.Validacion;
 import com.example.comedores.viewmodels.UsuarioViewModel;
 
 public class NuevoComedorFragment extends Fragment {
@@ -56,17 +57,19 @@ public class NuevoComedorFragment extends Fragment {
         etNombreComedor=(EditText) view.findViewById(R.id.etNombreComedor);
         etNombreResponsable=(EditText) view.findViewById(R.id.etNombreResponsable);
         etApellidoResponsable=(EditText) view.findViewById(R.id.etApellidoResponsable);
-        etDNI=(EditText) view.findViewById(R.id.etDNI);
+        //etDNI=(EditText) view.findViewById(R.id.etDNI);
         etProvincia=(EditText) view.findViewById(R.id.etProvincia);
         etLocalidad=(EditText)view.findViewById(R.id.etLocalidadRegistrarComedor);
-        etDireccion=(EditText)view.findViewById(R.id.etTelefonoAgregarComedor);
-        etEmail=(EditText)view.findViewById(R.id.etCorreoElectronicoAgregarComedor);
+        etDireccion=(EditText)view.findViewById(R.id.etDireccionAgregarComedor);
+        //etEmail=(EditText)view.findViewById(R.id.etCorreoElectronicoAgregarComedor);
         etTelefono=(EditText)view.findViewById(R.id.etTelefonoAgregarComedor);
         btnRegistrar=(Button)view.findViewById(R.id.btnRegistrarComedor);
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registrarComedor();
+                usuario.setComedor(comedor);
+                viewModel.setData(usuario);
             }
         });
     }
@@ -91,10 +94,52 @@ public class NuevoComedorFragment extends Fragment {
     }
 
     private void registrarComedor() {
-        cargarComedor();
-        DataComedores task = new DataComedores(comedor, getContext());
-        task.execute("AltaComedores");
+        String mensaje=validarDatos();
+        if(mensaje.compareTo("")==0){
+            cargarComedor();
+            DataComedores task = new DataComedores(comedor, getContext());
+            task.execute("AltaComedores");
+        }
+        else
+            Toast.makeText(getContext(), mensaje, Toast.LENGTH_SHORT).show();
 
+    }
+
+    private String validarDatos() {
+        String mensaje="";
+        if(etRenacom.getText().toString().isEmpty() || etNombreComedor.getText().toString().isEmpty()||
+            etNombreResponsable.getText().toString().isEmpty()|| etApellidoResponsable.getText().toString().isEmpty()||
+            etDireccion.getText().toString().isEmpty()|| etLocalidad.getText().toString().isEmpty()||
+            etProvincia.getText().toString().isEmpty()|| etTelefono.getText().toString().isEmpty()) {
+            mensaje = "Debe completar todos los datos";
+        }
+        else {
+            if (!Validacion.validarString(etRenacom.getText().toString(), Validacion.NUMEROS))
+                mensaje = "Renacom: solo caracteres numericos";
+            if (!Validacion.validarString(etNombreComedor.getText().toString(), Validacion.LETRAS_ESPACIOS))
+                mensaje = "Nombre de comedor: solo letras y espacios";
+            if (!Validacion.validarString(etNombreResponsable.getText().toString(), Validacion.LETRAS_ESPACIOS))
+                mensaje = "Nombre responsable: solo caracteres alfabeticos";
+            if (!Validacion.validarString(etApellidoResponsable.getText().toString(), Validacion.LETRAS_ESPACIOS))
+                mensaje = "Apellido: solo caracteres alfabeticos";
+            if (!Validacion.validarString(etDireccion.getText().toString(), Validacion.LETRAS_NUMEROS_ESPACIOS))
+                mensaje = "Direccion: solo caracteres alfanumericos";
+            if (!Validacion.validarString(etLocalidad.getText().toString(), Validacion.LETRAS_ESPACIOS))
+                mensaje = "Localidad: solo caracteres alfabeticos";
+            if (!Validacion.validarString(etProvincia.getText().toString(), Validacion.LETRAS_ESPACIOS))
+                mensaje = "Provincia: solo caracteres alfabeticos";
+            if (!Validacion.validarString(etTelefono.getText().toString(), Validacion.NUMEROS))
+                mensaje = "Telefono: solo caracteres numericos";
+        }
+        /*
+        etDNI=(EditText) view.findViewById(R.id.etDNI);
+        etProvincia=(EditText) view.findViewById(R.id.etProvincia);
+        etLocalidad=(EditText)view.findViewById(R.id.etLocalidadRegistrarComedor);
+        etDireccion=(EditText)view.findViewById(R.id.etTelefonoAgregarComedor);
+        etEmail=(EditText)view.findViewById(R.id.etCorreoElectronicoAgregarComedor);
+        etTelefono=(EditText)view.findViewById(R.id.etTelefonoAgregarComedor);
+        * */
+        return mensaje;
     }
 
 

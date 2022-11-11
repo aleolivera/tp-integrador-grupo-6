@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.comedores.entidades.Usuario;
+import com.example.comedores.util.Validacion;
 
 public class RegistrarUsuario1 extends AppCompatActivity {
     private EditText etNombre;
@@ -64,17 +65,31 @@ public class RegistrarUsuario1 extends AppCompatActivity {
         }
     }
     private String validarCampos() {
+        String mensaje="";
         String nombre=etNombre.getText().toString();
         String apellido=etApellido.getText().toString();
         String email=etEmail.getText().toString();
         String dni= etDni.getText().toString();
         String pass1= etPassword.getText().toString();
         String pass2= etPassword2.getText().toString();
+
         if(nombre.isEmpty()||apellido.isEmpty()||email.isEmpty()|| dni.isEmpty()||pass1.isEmpty()||pass2.isEmpty())
-            return "Debe completar todos los campos";
-        if(pass1.compareTo(pass2)!=0)
-            return "Las contraseñas deben coincidir";
-        return "";
+            mensaje= "Debe completar todos los campos";
+        else{
+            if (!Validacion.validarString(nombre, Validacion.LETRAS_ESPACIOS))
+                mensaje = "Nombre: solo letras y espacios";
+            if (!Validacion.validarString(apellido, Validacion.LETRAS_ESPACIOS))
+                mensaje = "Apellido: solo caracteres alfabeticos";
+            if (!Validacion.validarString(email, Validacion.EMAIL))
+                mensaje = "Email: formato no valido";
+            if (!Validacion.validarString(dni, Validacion.NUMEROS))
+                mensaje = "DNI: solo caracteres numericos";
+            if (!Validacion.validarString(pass1, Validacion.SIN_ESPACIOS))
+                mensaje = "Contraseña: no use espacios en blanco";
+            if(pass1.compareTo(pass2)!=0)
+                mensaje= "Las contraseñas deben coincidir";
+        }
+        return mensaje;
     }
     private void cargarUsuario() {
         usuario=new Usuario();
@@ -99,4 +114,5 @@ public class RegistrarUsuario1 extends AppCompatActivity {
         Intent i= new Intent(RegistrarUsuario1.this,MainActivity.class);
         startActivity(i);
     }
+
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.comedores.conexion.DataRegistrarUsuario;
 import com.example.comedores.entidades.Tipo;
 import com.example.comedores.entidades.Usuario;
+import com.example.comedores.util.Validacion;
 
 import java.util.ArrayList;
 
@@ -94,12 +95,21 @@ public class RegistrarUsuario2 extends AppCompatActivity {
     }
 
     private String validarCampos() {
+        String mensaje="";
         String direccion=etDireccion.getText().toString();
         String localidad=etLocalidad.getText().toString();
         String telefono=etTelefono.getText().toString();
         if(direccion.isEmpty()||localidad.isEmpty()||telefono.isEmpty())
-            return "Debe completar todos los campos";
-        return "";
+            mensaje= "Debe completar todos los campos";
+        else{
+            if (!Validacion.validarString(direccion, Validacion.LETRAS_NUMEROS_ESPACIOS))
+                mensaje = "Direccion: solo caracteres alfanumericos";
+            if (!Validacion.validarString(localidad, Validacion.LETRAS_ESPACIOS))
+                mensaje = "Localidad: solo caracteres alfabeticos";
+            if (!Validacion.validarString(telefono, Validacion.NUMEROS))
+                mensaje = "Telefono: solo caracteres numericos";
+        }
+        return mensaje;
     }
     private void cargarUsuario() {
         usuario.setDireccion(etDireccion.getText().toString());

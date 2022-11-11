@@ -76,7 +76,7 @@ public class SolicitudDialog extends AppCompatDialogFragment {
                             solicitud.getComedor().setEstado(new Estado(2,null));
                         }
                         modificarUsuario();
-                        Toast.makeText(getContext(), "Usuario Modificardo", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Estado de comedor Modificado", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

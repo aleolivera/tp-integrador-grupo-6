@@ -111,15 +111,28 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
     }
 
     private void verificarComedor(NavigationView navigationView) {
-        if(usuario.getComedor()!=null) {
-            Menu menu = navigationView.getMenu();
-            MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
-            itemAgregarComedor.setVisible(false);
-        } else {
-            Menu menu = navigationView.getMenu();
+        Menu menu = navigationView.getMenu();
+        if(usuario.getComedor()==null){
             MenuItem itemMisNecesidades = menu.findItem(R.id.nav_mis_necesidades);
             itemMisNecesidades.setVisible(false);
         }
+        else if(usuario.getComedor().getEstado().getId()==1){
+            MenuItem itemMisNecesidades = menu.findItem(R.id.nav_mis_necesidades);
+            MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
+            itemMisNecesidades.setVisible(false);
+            itemAgregarComedor.setVisible(false);
+        }
+        else{
+            MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
+            itemAgregarComedor.setVisible(false);
+        }
+        /*
+        if(usuario.getComedor()!=null) {
+            MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
+            itemAgregarComedor.setVisible(false);
+        }
+
+         */
     }
 
 

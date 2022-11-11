@@ -119,7 +119,7 @@ public class DataSolicitudes extends AsyncTask<String,Void,String> {
             Connection con = DriverManager.getConnection(DataDB.URLMYSQL,DataDB.USER,DataDB.PASS);
             PreparedStatement pst= con.prepareStatement(query);
             pst.setBoolean(1,solicitud.isEstado());
-            pst.setLong(2,solicitud.getComedor().getIdResponsable());
+            pst.setLong(2,solicitud.getIdSupervisor());
             pst.setLong(3,solicitud.getId());
             int filas= pst.executeUpdate();
 

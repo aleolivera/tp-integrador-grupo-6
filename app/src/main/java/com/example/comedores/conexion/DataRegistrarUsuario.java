@@ -45,8 +45,6 @@ public class DataRegistrarUsuario extends AsyncTask<String, Void, String> {
                 response="Usuario Registrado con Exito";
             else
                 response="No se pudo registrar el usuario";
-
-            response = "todo ok";
         }
         catch (Exception e) {
             e.printStackTrace();
