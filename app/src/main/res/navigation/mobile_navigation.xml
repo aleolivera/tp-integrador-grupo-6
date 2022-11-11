@@ -14,6 +14,12 @@
         android:name="com.example.comedores.ui.misNecesidades.MisNecesidadesFragment"
         android:label="@string/menu_mis_necesidades"
         tools:layout="@layout/fragment_mis_necesidades" />
+    <fragment
+        android:id="@+id/nav_registrar_comedor"
+        android:name="com.example.comedores.ui.nuevoComedor.NuevoComedorFragment"
+        android:label="Registrar Comedor"
+        tools:layout="@layout/fragment_nuevo_comedor"
+        />
     <!--
     <fragment
         android:id="@+id/nav_home"
