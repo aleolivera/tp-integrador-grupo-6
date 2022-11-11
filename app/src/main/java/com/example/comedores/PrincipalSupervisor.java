@@ -1,12 +1,16 @@
 package com.example.comedores;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -85,5 +89,27 @@ public class PrincipalSupervisor extends AppCompatActivity {
     private void cargarViewModel(){ //Carga el usuario en el activity para que sea accesible para los fragments
         usuarioViewModel=new ViewModelProvider(this).get(UsuarioViewModel.class);
         usuarioViewModel.setData(usuario);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.principal_comedor_admin,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_cerrar_sesion:
+                cerrarSession();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void cerrarSession() {
+        Intent i= new Intent(this,MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }
