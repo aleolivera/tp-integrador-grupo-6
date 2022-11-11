@@ -33,7 +33,6 @@ public class DataComedores extends AsyncTask<String,Void,String> {
     private Comedor comedor;
     private List<Comedor> comedores;
     private String mensaje="";
-    private Context context;
 
     public DataComedores(Context context, List<Comedor> listaComedores, ListView ComedoresLV) {
         this.usuario = usuario;
