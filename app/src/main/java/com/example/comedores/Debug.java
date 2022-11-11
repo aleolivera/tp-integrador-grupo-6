@@ -1,6 +1,8 @@
 package com.example.comedores;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import android.content.Intent;
@@ -13,6 +15,7 @@ public class Debug extends AppCompatActivity {
     private Button btnGoPerfil;
     private Button btnMaps;
     private Button btnBuscarComedor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class Debug extends AppCompatActivity {
         btnGoPerfil = (Button) findViewById(R.id.btnGoPerfil);
         btnMaps = (Button) findViewById(R.id.btnMaps);
         btnBuscarComedor = (Button) findViewById(R.id.btnBuscarComedor);
+
     }
 
     private void GoPerfil() {
@@ -57,13 +61,11 @@ public class Debug extends AppCompatActivity {
     }
 
     private void GoMaps() {
-        Intent i = new Intent(this, BuscarComedorMap.class);
-        startActivity(i);
-        finish();
+
     }
 
     private void GoBuscarComedor() {
-        Intent i = new Intent(this, BuscarComedor.class);
+        Intent i = new Intent(this, Comedores.class);
         startActivity(i);
         finish();
     }
