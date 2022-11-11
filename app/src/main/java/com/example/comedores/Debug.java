@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.comedores.entidades.Usuario;
+
 public class Debug extends AppCompatActivity {
 
     private Button btnGoPerfil;
     private Button btnMaps;
     private Button btnBuscarComedor;
+    private Usuario usuario;
 
 
     @Override
@@ -22,6 +25,8 @@ public class Debug extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debug);
         cargarUI();
+
+        usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 
         btnGoPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +61,7 @@ public class Debug extends AppCompatActivity {
 
     private void GoPerfil() {
         Intent i = new Intent(this, PerfilUser.class);
+        i.putExtra("usuario",usuario);
         startActivity(i);
         finish();
     }
