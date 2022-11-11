@@ -114,13 +114,17 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         Menu menu = navigationView.getMenu();
         if(usuario.getComedor()==null){
             MenuItem itemMisNecesidades = menu.findItem(R.id.nav_mis_necesidades);
+            MenuItem itemNuevaNecesidad = menu.findItem(R.id.nav_nueva_necesidad);
             itemMisNecesidades.setVisible(false);
+            itemNuevaNecesidad.setVisible(false);
         }
         else if(usuario.getComedor().getEstado().getId()==1){
             MenuItem itemMisNecesidades = menu.findItem(R.id.nav_mis_necesidades);
             MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
+            MenuItem itemNuevaNecesidad = menu.findItem(R.id.nav_nueva_necesidad);
             itemMisNecesidades.setVisible(false);
             itemAgregarComedor.setVisible(false);
+            itemNuevaNecesidad.setVisible(false);
         }
         else{
             MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
