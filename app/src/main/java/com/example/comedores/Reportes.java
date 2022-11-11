@@ -1,5 +1,7 @@
 package com.example.comedores;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,28 +10,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.comedores.conexion.DataEstados;
 import com.example.comedores.conexion.DataReporte;
-import com.example.comedores.conexion.DataSolicitudes;
 import com.example.comedores.conexion.DataTipos;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Reporte;
-import com.example.comedores.entidades.Solicitud;
 import com.example.comedores.entidades.Tipo;
 import com.example.comedores.entidades.Usuario;
 import com.example.comedores.viewmodels.UsuarioViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Reportes extends Fragment {
@@ -45,6 +43,8 @@ public class Reportes extends Fragment {
     private ListView lvReportes;
     private List<Reporte> listaReportes;
     DataTipos dtipos;
+
+    public Button btnBotonesReportes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +72,21 @@ public class Reportes extends Fragment {
             }
         });
 
+
+        btnBotonesReportes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                irABotonesReportes();
+
+
+            }
+        });
+
+        lvReportes.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return (event.getAction() == MotionEvent.ACTION_MOVE);
+            }
+        });
 
     }
 
@@ -106,6 +121,8 @@ public class Reportes extends Fragment {
 
         btnBuscar = (Button) view.findViewById(R.id.btnBuscarReporte);
         lvReportes = (ListView) view.findViewById(R.id.lvReportes);
+
+        btnBotonesReportes = (Button) view.findViewById(R.id.btnBotonesReportes);
     }
 
     private void BusquedaFiltro() {
@@ -123,5 +140,12 @@ public class Reportes extends Fragment {
 
         cargarListView("0", IdReporte, EstadoId.toString(), TipoId.toString());
 
+    }
+
+    private void irABotonesReportes() {
+
+        Intent intent = new Intent(getActivity(), ReportesBotones.class);
+        intent.putExtra("usuario", usuario);
+        startActivity(intent);
     }
 }

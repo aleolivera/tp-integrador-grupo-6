@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.comedores.R;
+import com.example.comedores.conexion.DataComedores;
 import com.example.comedores.entidades.Comedor;
+import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Usuario;
 import com.example.comedores.viewmodels.UsuarioViewModel;
 
@@ -40,10 +42,6 @@ public class NuevoComedorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         obtenerUsuario();
-        if(usuario.getComedor()!=null) {
-
-            Toast.makeText(getContext(), "Ya posee un comedor", Toast.LENGTH_SHORT).show();
-        }
         cargarUi(view);
         cargarDatosPorDefecto();
     }
@@ -79,8 +77,24 @@ public class NuevoComedorFragment extends Fragment {
         etDNI.setText(usuario.getDni());
     }
 
+    private void cargarComedor() {
+        comedor = new Comedor();
+        comedor.setIdResponsable(usuario.getId());
+        comedor.setRenacom(Long.parseLong(etRenacom.getText().toString()));
+        comedor.setNombre(etNombreComedor.getText().toString());
+        comedor.setDireccion(etDireccion.getText().toString());
+        comedor.setLocalidad(etLocalidad.getText().toString());
+        comedor.setProvincia(etProvincia.getText().toString());
+        comedor.setTelefono(etTelefono.getText().toString());
+        comedor.setNombreResponsable(etNombreResponsable.getText().toString());
+        comedor.setApellidoResponsable(etApellidoResponsable.getText().toString());
+    }
+
     private void registrarComedor() {
-        Toast.makeText(getContext(), "Falta Funcionalidad", Toast.LENGTH_SHORT).show();
+        cargarComedor();
+        DataComedores task = new DataComedores(comedor, getContext());
+        task.execute("AltaComedores");
+
     }
 
 
