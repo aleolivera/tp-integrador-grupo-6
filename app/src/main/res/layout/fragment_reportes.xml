@@ -7,14 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".Reportes">
 
-    <ListView
-        android:id="@+id/lvReportes"
-        android:layout_width="405dp"
-        android:layout_height="447dp"
-        android:layout_marginTop="100dp"
+    <ScrollView
+        android:id="@+id/scrollView6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="220dp"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spTipoReporte" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/lvReportes"
+                android:layout_width="405dp"
+                android:layout_height="447dp"
+
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spTipoReporte" />
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btnBuscarReporte"
@@ -92,6 +111,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnBotonesReportes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="Botones Reportes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spTipoReporte" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

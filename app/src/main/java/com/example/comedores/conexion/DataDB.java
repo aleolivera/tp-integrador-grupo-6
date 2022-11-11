@@ -2,13 +2,13 @@ package com.example.comedores.conexion;
 
 public class DataDB {
 
-    public final static String HOST="sql10.freesqldatabase.com";
-    public final static String PORT="3306";
-    public final static String NAMEDB="sql10544644";
-    public final static String USER="sql10544644";
-    public final static String PASS="nQcQFK77y1";
+    public final static String HOST = "sql10.freesqldatabase.com";
+    public final static String PORT = "3306";
+    public final static String NAMEDB = "sql10559525";
+    public final static String USER = "sql10559525";
+    public final static String PASS = "sql10559525";
 
-    public static String URLMYSQL="jdbc:mysql://"+HOST+":"+PORT+"/"+NAMEDB;
-    public static String DRIVER="com.mysql.jdbc.Driver";
+    public static String URLMYSQL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + NAMEDB;
+    public static String DRIVER = "com.mysql.jdbc.Driver";
 
 }

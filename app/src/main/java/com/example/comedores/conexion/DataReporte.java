@@ -29,6 +29,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,9 +79,7 @@ public class DataReporte extends AsyncTask<String, Void, String> {
                 break;
 
             case "AltaReporte":
-                //modificarSolicitud();
-
-
+                Reporte_Alta();
                 break;
 
             default:
@@ -190,24 +189,39 @@ public class DataReporte extends AsyncTask<String, Void, String> {
         if (VerificarReporteExistente(reporte.getUsuario().getId(), reporte.getTipo().getId(), reporte.getEstado().getId())) {
 
             mensaje = "";
-            String Query = "INSERT INTO `reportes` ( `tipo_id`, `estado_id`, `fecha_alta`, `descripcion`, `respuesta`, `reportado_id`) \n" +
-                    "VALUES (?,?,?,?,NULL,?)";
+            String Query = "INSERT INTO reportes ( tipo_id, estado_id, fecha_alta, descripcion,  reportado_id) \n" +
+                    "values (?,?,?,?,?)";
             try {
                 Class.forName(DataDB.DRIVER);
                 Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
 
-                PreparedStatement pst = con.prepareStatement(Query);
-                pst.setInt(1, reporte.getTipo().getId());
+                PreparedStatement pst = con.prepareStatement(Query, Statement.RETURN_GENERATED_KEYS);
+                pst.setInt(1, (int) reporte.getTipo().getId());
                 pst.setInt(2, reporte.getEstado().getId());
-                //pst.getMetaData(3,getdate);
+
+                pst.setDate(3, java.sql.Date.valueOf(String.valueOf(java.time.LocalDate.now())));
+
                 pst.setString(4, reporte.getDescripcion());
-                pst.setString(5, reporte.getRespuesta());
-                pst.setInt(6, (int) reporte.getIdReportado());
+                //pst.setString(5, reporte.getRespuesta());
 
-                int filas = pst.executeUpdate();
-                if (filas > 0) {
+                if ((int) reporte.getIdReportado() != 0) {
+                    pst.setInt(5, (int) reporte.getIdReportado());
+                } else {
+                    //Long nullLong = null;
+                    pst.setNString(5, null);
+                }
 
-                    mensaje = "ReporteAlta";
+                int FilasInsertadas = pst.executeUpdate(); //
+                int IdReprote = 0;
+                ResultSet rs = pst.getGeneratedKeys();
+                if (rs.next()) {
+                    IdReprote = rs.getInt(1);
+                }
+
+                if (FilasInsertadas > 0 && IdReprote > 0) {
+
+                    mensaje = "AltaReporteExitosa";
+                    ReportePorUsuarioAlta(IdReprote, (int) reporte.getUsuario().getId());
 
                 } else {
                     mensaje = "ReporteAltaError";
@@ -225,12 +239,17 @@ public class DataReporte extends AsyncTask<String, Void, String> {
     }
 
     protected boolean VerificarReporteExistente(long UsuarioAltaId, int ReportadoId, int TipoId) {
-        String query = "select cout(r.id)\n" +
+        //Si es app que no busque nada
+        if (TipoId == 1) {
+            return true;
+        }
+
+        String query = "select count(r.id)\n" +
                 "from reportes r\n" +
                 "  inner join usuarios_x_reportes uxr on uxr.reporte_id  = r.id \n" +
                 "  inner join tipos_reporte tr on tr.id = r.tipo_Id \n" +
                 "where \n" +
-                "\t(u.id = " + UsuarioAltaId + ")\n" +
+                "\t(uxr.Usuario_Id = " + UsuarioAltaId + ")\n" +
                 "\tand (r.reportado_id = " + ReportadoId + ")\n" +
                 "\tand (tr.id = " + TipoId + ")";
 
@@ -254,8 +273,26 @@ public class DataReporte extends AsyncTask<String, Void, String> {
 
     }
 
-    protected void ReportePorUsuarioAlta() {
+    protected void ReportePorUsuarioAlta(int IdReporte, int UsuarioAltaId) {
 
+        String Query = "insert into `usuarios_x_reportes` (usuario_id, reporte_id)\n" +
+                "values (" + UsuarioAltaId + ", " + IdReporte + " )";
+
+        try {
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
+            PreparedStatement pst = con.prepareStatement(Query);
+
+            int Id = pst.executeUpdate(); //
+            if (Id > 0) {
+                mensaje = "AltaReporteExitosa";
+            } else {
+                mensaje = "ReporteAltaError";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensaje = e.getMessage();
+        }
     }
 
     @Override
@@ -268,6 +305,9 @@ public class DataReporte extends AsyncTask<String, Void, String> {
             ListViewReportesAdapter adapter = new ListViewReportesAdapter(context, R.layout.item_row_reportes, listaReportes);
             lvReportes.setAdapter(adapter);
         }
+
+        if (mensaje.compareTo("AltaReporteExitosa") != 0)
+            Toast.makeText(context, "El reporte se dio de alta.", Toast.LENGTH_SHORT).show();
 
 //        if (Response == "") {
 //
