@@ -64,11 +64,78 @@ public class DataComedores extends AsyncTask<String,Void,String> {
 
 
                 break;
-
+            case "buscarComedorPorIdUsuario":
+                buscarComedorPorIdUsuario();
+                cargarEstadoComedor();
+                break;
             default:
                 break;
         }
         return mensaje;
+    }
+
+    private void cargarEstadoComedor() {
+        String query="select * from estados_comedor where id=?";
+
+        try{
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL,DataDB.USER,DataDB.PASS);
+            PreparedStatement pst= con.prepareStatement(query);
+            pst.setLong(1,comedor.getEstado().getId());
+            ResultSet rs= pst.executeQuery();
+            Estado e= new Estado();
+
+            if(rs.next()){
+                e.setId(rs.getInt(1));
+                e.setDescripcion(rs.getString(2));
+                comedor.setEstado(e);
+            }
+            else{
+                mensaje="Estado incorrecto";
+            }
+            rs.close();
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            mensaje="Error al cargar El Estado";
+        }
+    }
+
+    private void buscarComedorPorIdUsuario() {
+        String query="select * from comedores where usuario_id=?";
+
+        try{
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL,DataDB.USER,DataDB.PASS);
+            PreparedStatement pst= con.prepareStatement(query);
+            pst.setLong(1,comedor.getIdResponsable());
+            ResultSet rs= pst.executeQuery();
+            Comedor c= new Comedor();
+
+            if(rs.next()){
+                c.setId(rs.getLong("id"));
+                c.setRenacom(rs.getLong("renacom"));
+                c.setNombre(rs.getString("nombre"));
+                c.setDireccion(rs.getString("direccion"));
+                c.setLocalidad(rs.getString("localidad"));
+                c.setProvincia(rs.getString("provincia"));
+                c.setTelefono(rs.getString("telefono"));
+                c.setNombreResponsable(rs.getString("nombre_responsable"));
+                c.setApellidoResponsable(rs.getString("apellido_responsable"));
+                c.setEstado(new Estado(rs.getInt("estado_id"),null));
+                c.setIdResponsable(rs.getLong("usuario_id"));
+            }
+            else{
+                mensaje="Usuario no posee  comedor";
+            }
+            rs.close();
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            mensaje="Error al cargar El comedor";
+        }
     }
 
     private void listarComedores() {
