@@ -10,10 +10,12 @@ import com.example.comedores.entidades.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DataRegistrarUsuario extends AsyncTask<String, Void, String> {
     private Context context;
     private Usuario usuario;
+    private String response;
 
     public DataRegistrarUsuario(Context context,Usuario usuario){
         this.context= context;
@@ -21,7 +23,15 @@ public class DataRegistrarUsuario extends AsyncTask<String, Void, String> {
     }
     @Override
     protected String doInBackground(String... strings) {
-        String response="";
+        response="";
+        if(!usuarioExiste())
+            altaUsuario();
+        else
+            response="El usuario ya existe";
+
+        return response;
+    }
+    private void altaUsuario(){
         String query="insert into usuarios(nombre, apellido,email,password,tipo_id,dni,direccion,localidad,provincia,telefono,estado)\n" +
                 "values(?,?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -50,9 +60,31 @@ public class DataRegistrarUsuario extends AsyncTask<String, Void, String> {
             e.printStackTrace();
             response=e.getMessage();
         }
-        return response;
     }
+    private boolean usuarioExiste(){
+        boolean existe=false;
+        String query="select id from usuarios where email=? or dni=?";
+        try {
+            Class.forName(DataDB.DRIVER);
+            Connection con= DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER,DataDB.PASS);
 
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, usuario.getEmail());
+            pst.setString(2, usuario.getDni());
+            ResultSet rs= pst.executeQuery();
+            if(rs.next())
+                existe=true;
+            else
+                existe=false;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            response=e.getMessage();
+        }
+        finally {
+            return existe;
+        }
+    }
     @Override
     protected void onPostExecute(String response) {
         Toast.makeText(this.context, response, Toast.LENGTH_SHORT).show();
