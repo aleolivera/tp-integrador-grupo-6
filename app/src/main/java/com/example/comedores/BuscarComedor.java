@@ -50,6 +50,8 @@ public class BuscarComedor extends Fragment {
         view = inflater.inflate(R.layout.fragment_buscar_comedor, container, false);
 
         viewModel = new ViewModelProvider(requireActivity()).get(ComedoresViewModel.class);
+
+
         return view;
     }
 

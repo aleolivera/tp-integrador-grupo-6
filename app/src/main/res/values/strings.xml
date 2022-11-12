@@ -1,7 +1,8 @@
 <resources>
     <string name="btnDbg">DBG</string>
-    <string name="app_name">comedores</string>
-    <string name="login">Login</string>
+    <string name="app_name">Comedores App</string>
+    <string name="login">Entrar</string>
+    <string name="comedoresApp">Comedores App</string>
     <string name="correo_electronico">Correo Electronico</string>
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>

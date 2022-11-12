@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view2">
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_homeUsuarioFinalFragment"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_baseline_house_24"
             android:title="Home" />
         <item
             android:id="@+id/nav_buscarComedor"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_baseline_food_bank_24"
             android:title="Buscar Comedor" />
     </group>
 

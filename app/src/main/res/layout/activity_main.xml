@@ -21,10 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@string/login"
+            android:text="@string/comedoresApp"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textColor="#000000"
-            android:textSize="34sp" />
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etCorreo"
@@ -32,7 +34,8 @@
             android:layout_height="80dp"
             android:ems="10"
             android:hint="@string/correo_electronico"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:padding="20dp" />
 
         <EditText
             android:id="@+id/etPassword"
@@ -41,6 +44,7 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPersonName"
+            android:padding="20dp"
             android:password="true" />
 
         <Button
@@ -48,15 +52,15 @@
             android:layout_width="240dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:text="@string/login" />
 
         <Button
             android:id="@+id/btnRegistrarse"
             android:layout_width="240dp"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:text="@string/registrarse" />
 
     </LinearLayout>

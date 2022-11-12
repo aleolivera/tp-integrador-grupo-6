@@ -291,8 +291,6 @@ public class DataComedores extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String Response) {
 
 
-        if (mensaje.compareTo("") != 0)
-            Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
 
         if (mensaje.compareTo("Reportes cargados") == 0) {
             ListViewComedoresAdapter adapter = new ListViewComedoresAdapter(context, R.layout.item_row_comedores, comedores);

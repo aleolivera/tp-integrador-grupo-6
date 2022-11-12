@@ -20,21 +20,19 @@
             -->
         <item
             android:id="@+id/nav_principal_admin"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_baseline_house_24"
             android:title="@string/menu_principal" />
         <item
             android:id="@+id/nav_mis_necesidades"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_baseline_food_bank_24"
             android:title="@string/menu_mis_necesidades" />
         <item
             android:id="@+id/nav_registrar_comedor"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Registrar Comedor"
-            />
+            android:icon="@drawable/ic_baseline_add_home_work_24"
+            android:title="Registrar Comedor" />
         <item
             android:id="@+id/nav_nueva_necesidad"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Nueva Necesidad"
-            />
+            android:icon="@drawable/ic_baseline_note_add_24"
+            android:title="Nueva Necesidad" />
     </group>
 </menu>
