@@ -142,9 +142,17 @@ public class ReportesAlta extends AppCompatActivity {
     }
 
     protected void Volver() {
-
-
-        Intent in = new Intent(this, PrincipalComedorAdmin.class);
+        Intent in;
+        switch(usuario.getTipo()){
+            case 1:
+                in= new Intent(this,PrincipalUsuario.class);
+                break;
+            case 2:
+                in = new Intent(this, PrincipalComedorAdmin.class);
+                break;
+            default:
+                in = new Intent(this, MainActivity.class);
+        }
         in.putExtra("usuario",usuario);
         startActivity(in);
 

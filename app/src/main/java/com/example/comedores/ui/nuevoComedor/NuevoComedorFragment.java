@@ -1,5 +1,6 @@
 package com.example.comedores.ui.nuevoComedor;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.comedores.PrincipalComedorAdmin;
 import com.example.comedores.R;
 import com.example.comedores.conexion.DataComedores;
 import com.example.comedores.entidades.Comedor;
@@ -85,7 +87,7 @@ public class NuevoComedorFragment extends Fragment {
                 buscarComedorPorIdUsuario();
                 usuario.setComedor(comedor);
                 viewModel.setData(usuario);
-                //volverAHome();
+                volverAHome();
             }
         });
     }
@@ -107,7 +109,7 @@ public class NuevoComedorFragment extends Fragment {
         comedor.setTelefono(etTelefono.getText().toString());
         comedor.setNombreResponsable(etNombreResponsable.getText().toString());
         comedor.setApellidoResponsable(etApellidoResponsable.getText().toString());
-        comedor.setEstado(new Estado(1,null));
+        comedor.setEstado(new Estado(1,"pendiente"));
     }
 
     private void registrarComedor() {
@@ -157,16 +159,9 @@ public class NuevoComedorFragment extends Fragment {
         return mensaje;
     }
     private void volverAHome(){
-        Fragment fragment = new HomeAdminComedorFragment();
-// Obtener el administrador de fragmentos a través de la actividad
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-// Definir una transacción
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-// Remplazar el contenido principal por el fragmento
-        fragmentTransaction.replace(R.id.nav_view, fragment);
-        fragmentTransaction.addToBackStack(null);
-// Cambiar
-        fragmentTransaction.commit();
+        Intent i= new Intent(getActivity(), PrincipalComedorAdmin.class);
+        i.putExtra("usuario",usuario);
+        startActivity(i);
     }
     private void buscarComedorPorIdUsuario(){
         DataComedores task= new DataComedores(comedor,getContext());
