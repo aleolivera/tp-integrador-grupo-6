@@ -87,7 +87,7 @@ public class HomeUsuarioFinalFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Necesidad n= (Necesidad)lvNecesidades.getItemAtPosition(position);
-                irAComedor(n.getId());
+                irAPerfilComedor(n.getId());
             }
         });
     }
@@ -102,14 +102,13 @@ public class HomeUsuarioFinalFragment extends Fragment {
                 break;
         }
     }
-    private void irAComedor(long idNecesidad){
+    private void irAPerfilComedor(long idNecesidad){
         DataHomeUsuario task= new DataHomeUsuario(getContext(),comedor, idNecesidad);
         task.execute("buscarComedorPorIdNecesidad");
+
     }
     private void cargarUI() {
         lvNecesidades=(ListView) view.findViewById(R.id.lvNecesidadesHome);
         spFiltro= (Spinner) view.findViewById(R.id.spFiltro);
     }
-
-
 }

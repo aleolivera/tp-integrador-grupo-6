@@ -136,9 +136,7 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
 
                 listaNecesidades.add(n);
             }
-            if (listaNecesidades.size() > 0) {
-                mensaje = "cargarListView";
-            }
+            mensaje = "cargarListView";
             rs.close();
             con.close();
         }
@@ -174,9 +172,7 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
 
                 listaNecesidades.add(n);
             }
-            if (listaNecesidades.size() > 0) {
-                mensaje = "cargarListView";
-            }
+            mensaje = "cargarListView";
             rs.close();
             con.close();
         }
@@ -191,12 +187,14 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
         if (mensaje.compareTo("cargarListView") == 0) {
             ListViewNecesidadesHomeAdapter adapter = new ListViewNecesidadesHomeAdapter(context, R.layout.item_row_necesidades, listaNecesidades);
             lvNecesidades.setAdapter(adapter);
+            if(listaNecesidades.size()<1)
+                Toast.makeText(context, "No se encontraron publicaciones", Toast.LENGTH_SHORT).show();
         }
+
         if(mensaje.compareTo("irAComedor")==0){
             Intent i = new Intent(context, PerfilUser.class);
             i.putExtra("comedor",comedor);
             context.startActivity(i);
-            ((Activity)context).finish();
         }
     }
 
