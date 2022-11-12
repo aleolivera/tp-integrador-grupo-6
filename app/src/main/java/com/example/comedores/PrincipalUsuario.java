@@ -2,26 +2,25 @@ package com.example.comedores;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.TextView;
 
-import com.example.comedores.entidades.Usuario;
-import com.example.comedores.viewmodels.UsuarioViewModel;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.comedores.databinding.ActivityPrincipalUsuarioBinding;
+import com.example.comedores.entidades.Usuario;
+import com.example.comedores.viewmodels.UsuarioViewModel;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class PrincipalUsuario extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class PrincipalUsuario extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        usuario= (Usuario) getIntent().getSerializableExtra("usuario");
+        usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         cargarViewModel();
 
         binding = ActivityPrincipalUsuarioBinding.inflate(getLayoutInflater());
@@ -53,7 +52,7 @@ public class PrincipalUsuario extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_homeUsuarioFinalFragment,R.id.nav_buscarComedor)
+                R.id.nav_homeUsuarioFinalFragment, R.id.nav_buscarComedor, R.id.nav_Mis_Reportes)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_principal_usuario);
@@ -79,7 +78,7 @@ public class PrincipalUsuario extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_settings:
                 cerrarSession();
                 break;
@@ -87,18 +86,20 @@ public class PrincipalUsuario extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void cerrarSession(){
-        Intent i= new Intent(this,MainActivity.class);
+    private void cerrarSession() {
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
     }
-    private void cargarViewModel(){ //Carga el usuario en el activity para que sea accesible para los fragments
-        usuarioViewModel=new ViewModelProvider(this).get(UsuarioViewModel.class);
+
+    private void cargarViewModel() { //Carga el usuario en el activity para que sea accesible para los fragments
+        usuarioViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
         usuarioViewModel.setData(usuario);
     }
+
     private void cargarHeader(View header) {
-        TextView tvNdHeaderTitulo= (TextView)header.findViewById(R.id.tvNdHeaderTitulo);
-        TextView tvNdHeaderSubtitulo=(TextView)header.findViewById(R.id.tvNdHeaderSubtitulo);
+        TextView tvNdHeaderTitulo = (TextView) header.findViewById(R.id.tvNdHeaderTitulo);
+        TextView tvNdHeaderSubtitulo = (TextView) header.findViewById(R.id.tvNdHeaderSubtitulo);
         tvNdHeaderTitulo.setText("Bienvenido!");
         tvNdHeaderSubtitulo.setText(usuario.getEmail());
     }

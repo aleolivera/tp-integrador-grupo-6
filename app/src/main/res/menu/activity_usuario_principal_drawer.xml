@@ -12,6 +12,10 @@
             android:id="@+id/nav_buscarComedor"
             android:icon="@drawable/ic_baseline_food_bank_24"
             android:title="Comedores" />
+        <item
+            android:id="@+id/nav_Mis_Reportes"
+            android:icon="@drawable/ic_baseline_note_add_24"
+            android:title="Mis Reportes" />
     </group>
 
 </menu>
