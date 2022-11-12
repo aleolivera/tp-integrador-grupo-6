@@ -43,6 +43,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarPrincipalComedorAdmin.toolbar);
+        /*
         binding.appBarPrincipalComedorAdmin.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +53,8 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+
+         */
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
