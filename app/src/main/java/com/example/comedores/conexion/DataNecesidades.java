@@ -2,6 +2,7 @@ package com.example.comedores.conexion;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.comedores.entidades.Necesidad;
@@ -12,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 public class DataNecesidades extends AsyncTask<String, Void, String> {
 
@@ -26,11 +28,19 @@ public class DataNecesidades extends AsyncTask<String, Void, String> {
         this.idComedor = idComedor;
     }
 
+    public DataNecesidades(Context context, Necesidad necesidad) {
+        this.context = context;
+        this.necesidad = necesidad;
+    }
+
     @Override
     protected String doInBackground(String... strings) {
         switch (strings[0]) {
             case "agregarNecesidad":
                 agregarNecesidad();
+                break;
+            case "modificarNecesidad":
+                modificarNecesidadDelComedor();
                 break;
             default:
                 break;
@@ -92,6 +102,30 @@ public class DataNecesidades extends AsyncTask<String, Void, String> {
         } catch (Exception e) {
             e.printStackTrace();
             mensaje = e.getMessage();
+        }
+    }
+
+    private void modificarNecesidadDelComedor() {
+        String query = "UPDATE necesidades n set n.estado_id = ? where n.id = ?";
+        try {
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
+            PreparedStatement pst = con.prepareStatement(query);
+
+            pst.setInt(1, (necesidad.getEstado().getId() == 1)? 2 : 1);
+            pst.setInt(2, (int) necesidad.getId());
+            int filas = pst.executeUpdate();
+
+            if (filas > 0) {
+                mensaje = "El estado de la necesidad ha sido modificado";
+            } else {
+                mensaje = "No se pudo modificar la necesidad";
+            }
+            pst.close();
+            con.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "Error de conexion al modificar la necesidad";
         }
     }
 

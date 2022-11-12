@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.comedores.Comedores;
 import com.example.comedores.R;
 import com.example.comedores.adapters.ListViewComedoresAdapter;
+import com.example.comedores.adapters.ListViewMisNecesidadesAdapter;
 import com.example.comedores.adapters.ListViewReportesAdapter;
 import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Estado;
@@ -34,6 +35,8 @@ public class DataComedores extends AsyncTask<String,Void,String> {
     private Usuario usuario;
     private Context context;
     private ListView lvComedores;
+    private ListView lvNecesidades;
+    private List<Necesidad> listaNecesidades;
     private Comedor comedor;
     private List<Comedor> comedores;
     private String mensaje="";
@@ -43,6 +46,13 @@ public class DataComedores extends AsyncTask<String,Void,String> {
         this.context = context;
         this.lvComedores = ComedoresLV;
         this.comedores = listaComedores;
+    }
+
+    public DataComedores(Context context, Comedor comedor, ListView lvNecesidades, List<Necesidad> listaNecesidades) {
+        this.context = context;
+        this.comedor = comedor;
+        this.lvNecesidades = lvNecesidades;
+        this.listaNecesidades = listaNecesidades;
     }
 
     public DataComedores(Comedor comedor, Context context) {
@@ -63,6 +73,11 @@ public class DataComedores extends AsyncTask<String,Void,String> {
 
             case "AltaComedores":
                 agregarComedor();
+
+
+                break;
+            case "CargarNecesidades":
+                cargarNecesidades();
 
 
                 break;
@@ -302,8 +317,8 @@ public class DataComedores extends AsyncTask<String,Void,String> {
             Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
             PreparedStatement pst = con.prepareStatement(query);
             pst.setLong(1, comedor.getId());
+            listaNecesidades = new ArrayList<Necesidad>();
             ResultSet rs = pst.executeQuery();
-            comedor.setListaNecesidades(new ArrayList<Necesidad>());
 
             while (rs.next()) {
                 Necesidad n = new Necesidad(
@@ -313,8 +328,9 @@ public class DataComedores extends AsyncTask<String,Void,String> {
                         new Estado(rs.getInt(4), rs.getString(5)),
                         rs.getInt(7)
                 );
-                comedor.getListaNecesidades().add(n);
+                listaNecesidades.add(n);
             }
+            mensaje = "cargarListView";
             rs.close();
             con.close();
         }
@@ -323,6 +339,7 @@ public class DataComedores extends AsyncTask<String,Void,String> {
             mensaje = "Error al cargar las necesidades";
         }
     }
+
 
     @Override
     protected void onPostExecute(String Response) {
@@ -334,6 +351,13 @@ public class DataComedores extends AsyncTask<String,Void,String> {
         if (mensaje.compareTo("Reportes cargados") == 0) {
             ListViewComedoresAdapter adapter = new ListViewComedoresAdapter(context, R.layout.item_row_comedores, comedores);
             lvComedores.setAdapter(adapter);
+
+        }
+        if(mensaje.compareTo("cargarListView")==0) {
+            ListViewMisNecesidadesAdapter adapter = new ListViewMisNecesidadesAdapter(context, R.layout.item_row_mis_necesidades, listaNecesidades);
+            lvNecesidades.setAdapter(adapter);
+            if(listaNecesidades.size()<1)
+                Toast.makeText(context, "No se encontraron publicaciones", Toast.LENGTH_SHORT).show();
 
         }
     }
