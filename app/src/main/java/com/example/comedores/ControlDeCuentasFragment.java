@@ -47,6 +47,8 @@ public class ControlDeCuentasFragment extends Fragment {
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_control_de_cuentas, container, false);
         viewModel= new ViewModelProvider(requireActivity()).get(UsuarioViewModel.class);
+        getActivity().setTitle("Control de cuentas");
+
         return view;
     }
     @Override

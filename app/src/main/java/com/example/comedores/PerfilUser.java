@@ -6,49 +6,38 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Usuario;
 
 public class PerfilUser extends AppCompatActivity {
 
-    Usuario usuario;
+    Comedor comedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_user);
 
-        usuario = (Usuario) getIntent().getSerializableExtra("usuario");
-
-        TextView txtNombreUser = (TextView) findViewById(R.id.txtNombreUser);
-        TextView txtTipoUser = (TextView) findViewById(R.id.txtTipoUser);
-
-        txtNombreUser.setText(usuario.getNombre() + " " + usuario.getApellido());
-
-        switch(usuario.getTipo()){
-            case 1:
-                txtTipoUser.setText("Usuario Final");
-                break;
-            case 2:
-                txtTipoUser.setText("Administrador de Comedores");
-                break;
-            default:
-                txtTipoUser.setText("Supervisor");
-                break;
-        }
-
-        EditText editTextDireccion = (EditText) findViewById(R.id.editTextDireccion);
-        EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        EditText editTextPhone = (EditText) findViewById(R.id.editTextPhone);
-        EditText editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-
-        editTextDireccion.setText(usuario.getDireccion());
-        editTextEmail.setText(usuario.getEmail());
-        editTextPhone.setText(usuario.getTelefono());
-        editTextPassword.setText(usuario.getPassword());
-
-
 
         this.setTitle("Perfil");
+
+        comedor = (Comedor) getIntent().getSerializableExtra("comedor");
+
+
+        TextView tvComedorNombre = (TextView) findViewById(R.id.tvComedorNombre);
+        TextView tvRenacomNumero = (TextView) findViewById(R.id.tvRenacomNumero);
+        TextView txtDireccion = (TextView) findViewById(R.id.txtDireccion);
+        TextView txtLocalidad = (TextView) findViewById(R.id.txtLocalidad);
+        TextView txtTelefono = (TextView) findViewById(R.id.txtTelefono);
+        TextView txtResponsable = (TextView) findViewById(R.id.txtResponsable);
+
+        tvComedorNombre.setText(comedor.getNombre());
+        tvRenacomNumero.setText("# ReNaCom: " + String.valueOf(comedor.getRenacom()));
+        txtDireccion.setText(comedor.getDireccion());
+        txtLocalidad.setText(comedor.getLocalidad());
+        txtTelefono.setText(comedor.getTelefono());
+        txtResponsable.setText(comedor.getNombreResponsable() + " " + comedor.getApellidoResponsable());
+
     }
 
 

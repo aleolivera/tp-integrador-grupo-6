@@ -1,16 +1,18 @@
 <resources>
     <string name="btnDbg">DBG</string>
-    <string name="app_name">comedores</string>
-    <string name="login">Login</string>
+    <string name="app_name">Comedores App</string>
+    <string name="login">Entrar</string>
+    <string name="comedoresApp">Comedores App</string>
     <string name="correo_electronico">Correo Electronico</string>
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
+    <string name="nombreResponsable">Nombre del Responsable</string>
     <string name="dni">Dni</string>
     <string name="repita_password">Repita la contraseña</string>
     <string name="direccion">Direccion</string>
     <string name="localidad">Localidad</string>
     <string name="provincia">Provincia</string>
-    <string name="telefono">Telefono</string>
+    <string name="telefono">Teléfono</string>
     <string name="password">Contraseña</string>
     <string name="registrarse">Registrarse</string>
     <string name="alta_usuario">Nuevo Usuario</string>

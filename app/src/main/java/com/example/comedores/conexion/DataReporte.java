@@ -79,9 +79,15 @@ public class DataReporte extends AsyncTask<String, Void, String> {
                 break;
 
             case "AltaReporte":
-                Reporte_Alta();
+                ReporteAlta();
                 break;
 
+            case "ModificarReporte":
+                ReporteModificar();
+                break;
+            case "DarDeBaja":
+                DarDeBaja();
+                break;
             default:
                 break;
         }
@@ -184,7 +190,7 @@ public class DataReporte extends AsyncTask<String, Void, String> {
         }
     }
 
-    protected void Reporte_Alta() {
+    protected void ReporteAlta() {
 
         if (VerificarReporteExistente(reporte.getUsuario().getId(), reporte.getTipo().getId(), reporte.getEstado().getId())) {
 
@@ -295,45 +301,82 @@ public class DataReporte extends AsyncTask<String, Void, String> {
         }
     }
 
-    @Override
-    protected void onPostExecute(String Response) {
+    protected void ReporteModificar() {
+        String query = "update reportes r set r.estado_Id =? ,  r.respuesta =? where r.id=? ;";
+        try {
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, reporte.getEstado().getId());
+            pst.setString(2, reporte.getRespuesta());
+            pst.setLong(3, reporte.getId());
+            int filas = pst.executeUpdate();
 
-        if (mensaje.compareTo("") != 0)
-            Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
+            if (filas > 0) {
+                mensaje = "ModificarReporte";
+            } else {
+                mensaje = "No se pudo modificar el reporte";
+            }
 
-        if (mensaje.compareTo("Reportes cargados") == 0) {
-            ListViewReportesAdapter adapter = new ListViewReportesAdapter(context, R.layout.item_row_reportes, listaReportes);
-            lvReportes.setAdapter(adapter);
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "Error de conexion al modificar el reporte";
+        }
+    }
+
+    private void DarDeBaja() {
+
+        String Tabla = "Usaurio";
+        String query = "Update usuarios t set t.estado= ? where id = ?";
+
+        try {
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, 0);
+            pst.setLong(2, reporte.getIdReportado());
+
+            int filas = pst.executeUpdate();
+
+            if (filas > 0) {
+                mensaje = "DarDeBaja";
+            } else {
+                mensaje = "No se pudo dar de baja el usaurio";
+            }
+
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "Error de conexion al dar de baja el usuario";
         }
 
-        if (mensaje.compareTo("AltaReporteExitosa") != 0)
-            Toast.makeText(context, "El reporte se dio de alta.", Toast.LENGTH_SHORT).show();
+    }
 
-//        if (Response == "") {
-//
-//            ArrayAdapter<Reporte> adapter = new ArrayAdapter<Reporte>(context, android.R.layout.simple_list_item_1, listaReportes);
-//
-//            lvReportes.setAdapter(adapter);
-//
-//            lvReportes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                    String Info = "Reporte Id: " + listaReportes.get(i).getId() + "\n";
-//                    Info += " Fecha: " + listaReportes.get(i).getFechaAlta().toString() + "\n";
-//                    Info += " Estado: " + listaReportes.get(i).getEstado().getDescripcion().toString() + "\n";
-//                    Info += " Tipo: " + listaReportes.get(i).getTipo().getDescripcion().toString() + "\n";
-//                    Info += " Usuario Alta: " + listaReportes.get(i).getUsuario().getEmail().toString() + " " + listaReportes.get(i).getUsuario().getApellido().toString() + " - " + listaReportes.get(i).getUsuario().getNombre().toString() + "\n";
-//
-//
-//                    Toast.makeText(context, Info, Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//
-//        } else {
-//            Toast.makeText(context, Response, Toast.LENGTH_SHORT).show();
-//
-//        }
+    @Override
+    protected void onPostExecute(String Response) {
+        switch (mensaje) {
+            case "Reportes cargados":
+                ListViewReportesAdapter adapter = new ListViewReportesAdapter(context, R.layout.item_row_reportes, listaReportes);
+                lvReportes.setAdapter(adapter);
+                break;
+            case "AltaReporteExitosa":
+                Toast.makeText(context, "El reporte se dio de alta.", Toast.LENGTH_SHORT).show();
+                break;
+            case "ModificarReporte":
+                Toast.makeText(context, "El reporte se modifico con exito.", Toast.LENGTH_SHORT).show();
+                break;
+            case "DarDeBaja":
+                Toast.makeText(context, "El Usaurio se dio de baja.", Toast.LENGTH_SHORT).show();
+                break;
 
+            default:
+                Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
+                break;
+
+        }
     }
 
     private Usuario BusacarUsuarioReportado(Integer IdReportado) {
@@ -372,6 +415,7 @@ public class DataReporte extends AsyncTask<String, Void, String> {
 
         return usuarioReportado;
     }
+
 
     private Necesidad BusacarNecesidadReportado(Integer IdReportado) {
         Necesidad NecesidadReportada = new Necesidad();

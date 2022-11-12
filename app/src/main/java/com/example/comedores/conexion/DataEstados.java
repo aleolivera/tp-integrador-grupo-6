@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import androidx.annotation.RequiresApi;
 
 import com.example.comedores.entidades.Estado;
+import com.example.comedores.entidades.Tipo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -83,6 +84,12 @@ public class DataEstados extends AsyncTask<String, Void, String> {
             Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
+
+            Estado vacioestado = new Estado();
+            vacioestado.setId(0);
+            vacioestado.setDescripcion("Todos");
+            EstadoList.add(vacioestado);
+
             while (resultSet.next()) {
                 Estado estado = new Estado();
                 estado.setId(resultSet.getInt("id"));

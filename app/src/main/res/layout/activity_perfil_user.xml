@@ -18,27 +18,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/txtNombreUser"
+            android:id="@+id/tvComedorNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="false"
             android:layout_centerVertical="false"
             android:layout_gravity="center"
-            android:paddingLeft="30dp"
-            android:paddingTop="60dp"
-            android:paddingRight="30dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="40dp"
+            android:paddingRight="15dp"
             android:paddingBottom="5dp"
-            android:text="Alexis Rodriguez"
+            android:text="Comedor los angelitos de madre rosa"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtTipoUser"
+            android:id="@+id/tvRenacomNumero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Administrador de Comedores"
+            android:text="# ReNaCom: 1241432534"
+            android:textAlignment="center"
             android:textColor="#433F3F"
             tools:ignore="TextContrastCheck" />
 
@@ -52,47 +54,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
-        <EditText
-            android:id="@+id/editTextDireccion"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="25dp"
-            android:ems="10"
-            android:hint="@string/nombre"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="25dp"
-            android:ems="10"
-            android:hint="@string/correo_electronico"
-            android:inputType="textWebEmailAddress" />
-
-        <EditText
-            android:id="@+id/editTextPhone"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="25dp"
-            android:ems="10"
-            android:hint="@string/telefono"
-            android:inputType="phone" />
-
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="25dp"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
-
-        <Button
-            android:id="@+id/btnUpdate"
+        <TextView
+            android:id="@+id/txtLblDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/update" />
+            android:text="@string/direccion"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="La Pinta 5647"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtLblLocalidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/localidad"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtLocalidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="San Miguel"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtLblTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/telefono"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="+541167895603"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtLblResponsable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nombreResponsable"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtResponsable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="Carlos Perez"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

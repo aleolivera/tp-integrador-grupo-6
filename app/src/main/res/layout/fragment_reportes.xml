@@ -7,41 +7,28 @@
     android:layout_height="match_parent"
     tools:context=".Reportes">
 
-    <ScrollView
-        android:id="@+id/scrollView6"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="220dp"
-        android:fillViewport="true"
+
+    <ListView
+        android:id="@+id/lvReportes"
+        android:layout_width="405dp"
+        android:layout_height="447dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ListView
-                android:id="@+id/lvReportes"
-                android:layout_width="405dp"
-                android:layout_height="447dp"
-
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spTipoReporte" />
-        </LinearLayout>
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/btnBuscarReporte"
+        app:layout_constraintVertical_bias="0.118" />
 
     <Button
         android:id="@+id/btnBuscarReporte"
         android:layout_width="100dp"
         android:layout_height="40dp"
+        android:layout_marginStart="295dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
         android:text="Buscar"
-        app:layout_constraintEnd_toEndOf="@+id/spTipoReporte"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spTipoReporte" />
 
     <EditText
@@ -111,16 +98,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnBotonesReportes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="Botones Reportes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spTipoReporte" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

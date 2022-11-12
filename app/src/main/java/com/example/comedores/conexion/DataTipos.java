@@ -84,6 +84,11 @@ public class DataTipos extends AsyncTask<String, Void, String> {
             Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
+            Tipo Vaciotipo = new Tipo();
+            Vaciotipo.setId(0);
+            Vaciotipo.setDescripcion("Todos");
+            TiposList.add(Vaciotipo);
+
             while (resultSet.next()) {
                 Tipo Rtipo = new Tipo();
                 Rtipo.setId(resultSet.getInt("id"));
