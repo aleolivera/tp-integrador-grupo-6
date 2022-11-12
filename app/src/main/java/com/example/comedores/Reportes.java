@@ -24,6 +24,7 @@ import com.example.comedores.conexion.DataReporte;
 import com.example.comedores.conexion.DataTipos;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Reporte;
+import com.example.comedores.entidades.Solicitud;
 import com.example.comedores.entidades.Tipo;
 import com.example.comedores.entidades.Usuario;
 import com.example.comedores.viewmodels.UsuarioViewModel;
@@ -45,6 +46,10 @@ public class Reportes extends Fragment {
     DataTipos dtipos;
 
     public Button btnBotonesReportes;
+
+    public Reportes() {
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,37 +78,39 @@ public class Reportes extends Fragment {
         });
 
 
-        btnBotonesReportes.setOnClickListener(new View.OnClickListener() {
+       /* btnBotonesReportes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 irABotonesReportes();
 
 
             }
-        });
+        });*/
 
-        lvReportes.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                return (event.getAction() == MotionEvent.ACTION_MOVE);
-            }
-        });
 
     }
 
     private void iniciarListView() {
         cargarListView("0", "0", "1", "0");
+
         lvReportes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //VerlvReportes((Reportes) lvReportes.getItemAtPosition(position));
+                VerlvReportes((Reporte) lvReportes.getItemAtPosition(position));
             }
         });
+
     }
 
+
+    private void VerlvReportes(Reporte reporte) {
+        ReporteDialog dialog = new ReporteDialog(reporte, usuario);
+        dialog.show(getActivity().getSupportFragmentManager(), "reprote dialog");
+    }
+
+
     private void cargarListView(String IdUsuario, String IdReporte, String EstadoId, String TipoId) {
-
         DataReporte task = new DataReporte(getContext(), listaReportes, lvReportes);
-
         task.execute("ListarReporte", IdUsuario, IdReporte, EstadoId, TipoId);
     }
 
@@ -119,10 +126,11 @@ public class Reportes extends Fragment {
         DataEstados taskEstado = new DataEstados(spnEstado, getContext());
         taskEstado.execute("2");//Obtengo los tipos de reporte
 
+
         btnBuscar = (Button) view.findViewById(R.id.btnBuscarReporte);
         lvReportes = (ListView) view.findViewById(R.id.lvReportes);
 
-        btnBotonesReportes = (Button) view.findViewById(R.id.btnBotonesReportes);
+        //btnBotonesReportes = (Button) view.findViewById(R.id.btnBotonesReportes);
     }
 
     private void BusquedaFiltro() {
