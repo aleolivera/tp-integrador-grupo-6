@@ -145,6 +145,7 @@ public class ReportesAlta extends AppCompatActivity {
 
 
         Intent in = new Intent(this, PrincipalComedorAdmin.class);
+        in.putExtra("usuario",usuario);
         startActivity(in);
 
     }
