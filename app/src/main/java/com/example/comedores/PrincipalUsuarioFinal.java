@@ -10,5 +10,7 @@ public class PrincipalUsuarioFinal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal_usuario_final);
+
+        this.setTitle("asd");
     }
 }
