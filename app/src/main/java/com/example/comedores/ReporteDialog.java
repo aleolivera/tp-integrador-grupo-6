@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -70,7 +71,11 @@ public class ReporteDialog extends AppCompatDialogFragment {
         tvReproteTitulo.setText("Reporte: " + reporte.getId());
         tvTipo.setText("Tipo: " + reporte.getTipo().getDescripcion());
 
-        etRespuesta.setText(reporte.getRespuesta().toString());
+        String respuesta = "";
+        if (!TextUtils.isEmpty(reporte.getRespuesta())) {
+            respuesta = reporte.getRespuesta().toString();
+        }
+        etRespuesta.setText(respuesta);
 
         etDescripcion.setText(reporte.getDescripcion());
         etDescripcion.setEnabled(false);

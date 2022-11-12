@@ -72,7 +72,7 @@ public class DataReporte extends AsyncTask<String, Void, String> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected String doInBackground(String... strings) {
-
+        mensaje = "";
         switch (strings[0]) {
             case "ListarReporte":
                 ReportesListar(strings);
@@ -181,6 +181,8 @@ public class DataReporte extends AsyncTask<String, Void, String> {
 
             if (listaReportes.size() > 0) {
                 mensaje = "Reportes cargados";
+            } else {
+                mensaje = "No se encontro ningun reporte";
             }
             resultSet.close();
             con.close();

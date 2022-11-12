@@ -24,9 +24,9 @@ import com.example.comedores.conexion.DataReporte;
 import com.example.comedores.conexion.DataTipos;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Reporte;
-import com.example.comedores.entidades.Solicitud;
 import com.example.comedores.entidades.Tipo;
 import com.example.comedores.entidades.Usuario;
+import com.example.comedores.viewmodels.ReportesViewModel;
 import com.example.comedores.viewmodels.UsuarioViewModel;
 
 import java.util.List;
@@ -35,31 +35,31 @@ public class Reportes extends Fragment {
 
     private View view;
     private UsuarioViewModel viewModel;
+    private ReportesViewModel vmRep;
 
     private Usuario usuario;
     private EditText etReportId;
-    public Button btnBuscar;
+    public Button btnBuscar, btnReporteAplicacion;
     private Spinner spnTipo;
     private Spinner spnEstado;
     private ListView lvReportes;
     private List<Reporte> listaReportes;
     DataTipos dtipos;
 
+    private Reporte reporte;
+
     public Button btnBotonesReportes;
 
-    public Reportes() {
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View viewRoot = inflater.inflate(R.layout.fragment_reportes, container, false);
         view = inflater.inflate(R.layout.fragment_reportes, container, false);
 
         viewModel = new ViewModelProvider(requireActivity()).get(UsuarioViewModel.class);
+        vmRep = new ViewModelProvider(requireActivity()).get(ReportesViewModel.class);
+
         return view;
     }
 
@@ -67,6 +67,8 @@ public class Reportes extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         usuario = viewModel.getData().getValue();
+        reporte = new Reporte();
+        ;
         cargarUI();
         iniciarListView();
 
@@ -77,6 +79,14 @@ public class Reportes extends Fragment {
             }
         });
 
+
+        btnReporteAplicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cargarReprote(1, 0);
+
+            }
+        });
 
        /* btnBotonesReportes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +101,12 @@ public class Reportes extends Fragment {
     }
 
     private void iniciarListView() {
-        cargarListView("0", "0", "1", "0");
+
+        String idUsuario = String.valueOf(usuario.getId());
+        if (usuario.getTipo() == 3) {
+            idUsuario = "0";
+        }
+        cargarListView(idUsuario, "0", "1", "0");
 
         lvReportes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -99,6 +114,7 @@ public class Reportes extends Fragment {
                 VerlvReportes((Reporte) lvReportes.getItemAtPosition(position));
             }
         });
+
 
     }
 
@@ -128,6 +144,12 @@ public class Reportes extends Fragment {
 
 
         btnBuscar = (Button) view.findViewById(R.id.btnBuscarReporte);
+        btnReporteAplicacion = (Button) view.findViewById(R.id.btnReportarApp);
+
+        if (usuario.getTipo() == 3) {
+            btnReporteAplicacion.setVisibility(View.INVISIBLE);
+        }
+
         lvReportes = (ListView) view.findViewById(R.id.lvReportes);
 
         //btnBotonesReportes = (Button) view.findViewById(R.id.btnBotonesReportes);
@@ -146,14 +168,68 @@ public class Reportes extends Fragment {
         Tipo tSelect = (Tipo) spnTipo.getSelectedItem();
         Integer TipoId = tSelect.getId();
 
-        cargarListView("0", IdReporte, EstadoId.toString(), TipoId.toString());
+        String idUsuario = String.valueOf(usuario.getId());
+        if (usuario.getTipo() == 3) {
+            idUsuario = "0";
+        }
+        cargarListView(idUsuario, IdReporte, EstadoId.toString(), TipoId.toString());
 
     }
+/*
 
     private void irABotonesReportes() {
 
         Intent intent = new Intent(getActivity(), ReportesBotones.class);
         intent.putExtra("usuario", usuario);
         startActivity(intent);
+    }
+*/
+
+
+    private void cargarReprote(int tipo, int idreportado) {
+
+        reporte = new Reporte();
+        Tipo t = new Tipo(1, "");
+        Estado e = new Estado(1, "");
+
+        //Aca estan los ejemplos
+        switch (tipo) {
+            case 1://Aplicacion
+            {
+                t.setId(1);
+                reporte.setIdReportado(0);
+            }
+            break;
+            case 2://Usaurio
+            {
+                t.setId(2);
+                reporte.setIdReportado(idreportado);
+            }
+            break;
+            case 3://necesidad
+            {
+                t.setId(3);
+                reporte.setIdReportado(idreportado);
+            }
+            break;
+
+        }
+        reporte.setUsuario(usuario);
+        reporte.setTipo(t);
+        reporte.setEstado(e);
+        IrAReportesAlta(reporte);
+
+        Intent intent = new Intent(getActivity(), ReportesAlta.class);
+
+        intent.putExtra("reporte", reporte);
+        intent.putExtra("usuario", usuario);
+
+        startActivity(intent);
+
+    }
+
+    private void IrAReportesAlta(Reporte reporte) {
+
+
     }
 }

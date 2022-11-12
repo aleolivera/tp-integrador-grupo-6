@@ -34,5 +34,9 @@
             android:id="@+id/nav_nueva_necesidad"
             android:icon="@drawable/ic_baseline_note_add_24"
             android:title="Nueva Necesidad" />
+        <item
+            android:id="@+id/nav_Mis_Reportes"
+            android:icon="@drawable/ic_baseline_note_add_24"
+            android:title="Mis Reportes" />
     </group>
 </menu>

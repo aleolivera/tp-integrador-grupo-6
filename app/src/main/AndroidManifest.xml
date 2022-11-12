@@ -67,7 +67,7 @@
         <activity
             android:name=".PrincipalUsuarioFinal"
             android:exported="false"
-            android:title="asd"/>
+            android:title="asd" />
         <activity
             android:name=".PrincipalSupervisor"
             android:exported="false" />
@@ -76,6 +76,9 @@
             android:exported="false" />
         <activity
             android:name=".RegistrarUsuario1"
+            android:exported="false" />
+        <activity
+            android:name=".ReportesAlta"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

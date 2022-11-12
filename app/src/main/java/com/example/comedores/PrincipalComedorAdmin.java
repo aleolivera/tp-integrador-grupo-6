@@ -36,7 +36,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        usuario= (Usuario) getIntent().getSerializableExtra("usuario");
+        usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         cargarViewModel();
 
         binding = ActivityPrincipalComedorAdminBinding.inflate(getLayoutInflater());
@@ -58,7 +58,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         // menu should be considered as top level destinations.
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_principal_admin, R.id.nav_mis_necesidades)
+                R.id.nav_principal_admin, R.id.nav_mis_necesidades, R.id.nav_Mis_Reportes)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -69,13 +69,14 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         verificarComedor(navigationView);
     }
 
-    private void cargarViewModel(){ //Carga el usuario en el activity para que sea accesible para los fragments
-        usuarioViewModel=new ViewModelProvider(this).get(UsuarioViewModel.class);
+    private void cargarViewModel() { //Carga el usuario en el activity para que sea accesible para los fragments
+        usuarioViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
         usuarioViewModel.setData(usuario);
     }
+
     private void cargarHeader(View header) {
-        TextView tvNdHeaderTitulo= (TextView)header.findViewById(R.id.tvNdHeaderTitulo);
-        TextView tvNdHeaderSubtitulo=(TextView)header.findViewById(R.id.tvNdHeaderSubtitulo);
+        TextView tvNdHeaderTitulo = (TextView) header.findViewById(R.id.tvNdHeaderTitulo);
+        TextView tvNdHeaderSubtitulo = (TextView) header.findViewById(R.id.tvNdHeaderSubtitulo);
         tvNdHeaderTitulo.setText("Bienvenido!");
         tvNdHeaderSubtitulo.setText(usuario.getEmail());
     }
@@ -89,7 +90,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_cerrar_sesion:
                 cerrarSession();
                 break;
@@ -104,29 +105,30 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void cerrarSession(){
-        Intent i= new Intent(this,MainActivity.class);
+    private void cerrarSession() {
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
     }
 
     private void verificarComedor(NavigationView navigationView) {
         Menu menu = navigationView.getMenu();
-        if(usuario.getComedor()==null){
+        if (usuario.getComedor() == null) {
             MenuItem itemMisNecesidades = menu.findItem(R.id.nav_mis_necesidades);
             MenuItem itemNuevaNecesidad = menu.findItem(R.id.nav_nueva_necesidad);
+            MenuItem itemReportes = menu.findItem(R.id.nav_Mis_Reportes);
             itemMisNecesidades.setVisible(false);
             itemNuevaNecesidad.setVisible(false);
-        }
-        else if(usuario.getComedor().getEstado().getId()==1){
+        } else if (usuario.getComedor().getEstado().getId() == 1) {
             MenuItem itemMisNecesidades = menu.findItem(R.id.nav_mis_necesidades);
             MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
             MenuItem itemNuevaNecesidad = menu.findItem(R.id.nav_nueva_necesidad);
+            MenuItem itemReportes = menu.findItem(R.id.nav_Mis_Reportes);
+
             itemMisNecesidades.setVisible(false);
             itemAgregarComedor.setVisible(false);
             itemNuevaNecesidad.setVisible(false);
-        }
-        else{
+        } else {
             MenuItem itemAgregarComedor = menu.findItem(R.id.nav_registrar_comedor);
             itemAgregarComedor.setVisible(false);
         }

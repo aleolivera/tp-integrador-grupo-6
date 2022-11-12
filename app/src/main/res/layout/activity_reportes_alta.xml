@@ -68,31 +68,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvReporteAlta" />
 
-    <Spinner
-        android:id="@+id/spEstadoReporte"
-        android:layout_width="195dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spTipoReporte" />
-
-    <Spinner
-        android:id="@+id/spTipoReporte"
-        android:layout_width="195dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="21dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etReporteDesc" />
-
     <TextView
         android:id="@+id/tvIdReportado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="31dp"
         android:text="Reportado:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spEstadoReporte" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEstadoRep" />
+
+    <TextView
+        android:id="@+id/tvEstadoRep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="31dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTipoRep" />
+
+    <TextView
+        android:id="@+id/tvTipoRep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="34dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etReporteDesc" />
 </androidx.constraintlayout.widget.ConstraintLayout>
