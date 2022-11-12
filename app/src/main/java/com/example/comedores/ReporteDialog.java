@@ -127,30 +127,27 @@ public class ReporteDialog extends AppCompatDialogFragment {
     private void iniciarDialog(View view) {
         String texto = "Modificar";
 
-        if (usuario.getTipo() != 3) {
-
-            texto = "Cerrar";
-        }
+        if (usuario.getTipo() == 3) {
 
 
-        builder.setView(view).
-                //setTitle("ReproteId").
-                        setPositiveButton(texto, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            builder.setView(view).
+                    //setTitle("ReproteId").
+                            setPositiveButton(texto, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                        if (usuario.getTipo() == 3) {
+                            if (usuario.getTipo() == 3) {
 
-                            if (ValidaCampos()) {
-                                modificarReporte();
+                                if (ValidaCampos()) {
+                                    modificarReporte();
+                                } else {
+                                }
                             } else {
+
                             }
-                        } else {
-
                         }
-                    }
-                });
-
+                    });
+        }
         texto = "Cerrar";
         builder.setView(view).
                 //setTitle("ReproteId").

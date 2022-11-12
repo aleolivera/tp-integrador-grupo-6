@@ -25,6 +25,7 @@ import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Necesidad;
 import com.example.comedores.entidades.Tipo;
 import com.example.comedores.entidades.Usuario;
+import com.example.comedores.util.Validacion;
 import com.example.comedores.viewmodels.UsuarioViewModel;
 
 public class NuevaNecesidadFragment extends Fragment {
@@ -101,8 +102,13 @@ public class NuevaNecesidadFragment extends Fragment {
 
     private void registrarNecesidad() {
         cargarNecesidad();
-        DataNecesidades task = new DataNecesidades(getContext(), (int) usuario.getComedor().getId(), necesidad);
-        task.execute("agregarNecesidad");
+        String mensaje= validarDatos();
+        if(mensaje.compareTo("")==0) {
+            DataNecesidades task = new DataNecesidades(getContext(), (int) usuario.getComedor().getId(), necesidad);
+            task.execute("agregarNecesidad");
+        } else {
+            Toast.makeText(getContext(), mensaje, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void cargarNecesidad() {
@@ -112,5 +118,13 @@ public class NuevaNecesidadFragment extends Fragment {
         necesidad.setEstado(new Estado(1, ""));
         necesidad.setTipo(new Tipo(spTiposNecesidad.getSelectedItemPosition() + 1, ""));
 
+    }
+
+    private String validarDatos() {
+        String mensaje = "";
+        if(etDescripcion.getText().toString().isEmpty()) {
+            mensaje = "Ingrese una descripción";
+        }
+        return mensaje;
     }
 }
