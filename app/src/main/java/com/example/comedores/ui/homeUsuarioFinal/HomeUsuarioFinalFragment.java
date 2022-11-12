@@ -19,9 +19,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.comedores.MainActivity;
+import com.example.comedores.PerfilUser;
 import com.example.comedores.R;
 import com.example.comedores.conexion.DataHomeUsuario;
 import com.example.comedores.conexion.DataSolicitudes;
+import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Necesidad;
 import com.example.comedores.entidades.Solicitud;
 import com.example.comedores.entidades.Usuario;
@@ -37,6 +39,7 @@ public class HomeUsuarioFinalFragment extends Fragment {
     private List<Necesidad> listaNecesidades;
     private ListView lvNecesidades;
     private Spinner spFiltro;
+    private Comedor comedor;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,7 +86,8 @@ public class HomeUsuarioFinalFragment extends Fragment {
         lvNecesidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "ir Al Comedor?", Toast.LENGTH_SHORT).show();
+                Necesidad n= (Necesidad)lvNecesidades.getItemAtPosition(position);
+                irAComedor(n.getId());
             }
         });
     }
@@ -97,6 +101,10 @@ public class HomeUsuarioFinalFragment extends Fragment {
                 task.execute("listarNecesidadesPorLocalidad",usuario.getLocalidad());
                 break;
         }
+    }
+    private void irAComedor(long idNecesidad){
+        DataHomeUsuario task= new DataHomeUsuario(getContext(),comedor, idNecesidad);
+        task.execute("buscarComedorPorIdNecesidad");
     }
     private void cargarUI() {
         lvNecesidades=(ListView) view.findViewById(R.id.lvNecesidadesHome);

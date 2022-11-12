@@ -1,10 +1,13 @@
 package com.example.comedores.conexion;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.comedores.PerfilUser;
 import com.example.comedores.R;
 import com.example.comedores.adapters.ListViewComedoresAdapter;
 import com.example.comedores.adapters.ListViewNecesidadesHomeAdapter;
@@ -50,6 +53,7 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
 
             case "buscarComedorPorIdNecesidad":
                 buscarComedorPorIdNecesidad();
+                break;
 
             case "listarNecesidadesPorLocalidad":
                 listarNecesidadesPorLocalidad(strings[1]);
@@ -67,11 +71,41 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
                 " inner join necesidades n on n.id=cn.necesidad_id"+
                 " inner join estados_comedor e on e.id=c.estado_id"+
                 " where n.id=?";
+        try{
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL,DataDB.USER,DataDB.PASS);
+            PreparedStatement pst= con.prepareStatement(query);
+            pst.setLong(1,idNecesidad);
+            comedor= new Comedor();
+            ResultSet rs= pst.executeQuery();
+
+
+            if(rs.next()){
+
+                comedor.setId(rs.getLong(1));
+                comedor.setEstado(new Estado(rs.getInt(2),rs.getString(3)));
+                comedor.setIdResponsable(rs.getLong(4));
+                comedor.setRenacom(rs.getLong(5));
+                comedor.setNombre(rs.getString(6));
+                comedor.setDireccion(rs.getString(7));
+                comedor.setLocalidad(rs.getString(8));
+                comedor.setProvincia(rs.getString(9));
+                comedor.setTelefono(rs.getString(10));
+                comedor.setNombreResponsable(rs.getString(11));
+                comedor.setApellidoResponsable(rs.getString(12));
+                mensaje="irAComedor";
+            }
+            else
+                mensaje = "No se encontro Comedor";
+            rs.close();
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            mensaje="Error al cargar comedor";
+        }
     }
 
-    private void cargarNecesidades() {
-
-    }
 
     private void listarNecesidadesPorLocalidad(String localidad) {
         String query="SELECT n.id,n.tipo_id,t.descripcion,n.estado_id,e.descripcion,"+
@@ -157,6 +191,12 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
         if (mensaje.compareTo("cargarListView") == 0) {
             ListViewNecesidadesHomeAdapter adapter = new ListViewNecesidadesHomeAdapter(context, R.layout.item_row_necesidades, listaNecesidades);
             lvNecesidades.setAdapter(adapter);
+        }
+        if(mensaje.compareTo("irAComedor")==0){
+            Intent i = new Intent(context, PerfilUser.class);
+            i.putExtra("comedor",comedor);
+            context.startActivity(i);
+            ((Activity)context).finish();
         }
     }
 
