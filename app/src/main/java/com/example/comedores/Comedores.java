@@ -26,6 +26,8 @@ public class Comedores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comedores);
 
+        this.setTitle("Comedores");
+
         buscarComedor = new BuscarComedor();
 
         getSupportFragmentManager().beginTransaction().add(R.id.containerFragments, buscarComedor).commit();

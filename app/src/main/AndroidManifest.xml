@@ -48,7 +48,9 @@
         -->
         <activity
             android:name=".PerfilUser"
-            android:exported="false" >
+            android:exported="false"
+            android:parentActivityName=".PerfilUser">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

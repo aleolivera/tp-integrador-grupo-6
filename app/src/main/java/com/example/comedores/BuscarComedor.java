@@ -1,5 +1,6 @@
 package com.example.comedores;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -68,7 +69,11 @@ public class BuscarComedor extends Fragment {
         lvComedores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //VerlvReportes((Reportes) lvReportes.getItemAtPosition(position));
+
+                Intent i = new Intent(getActivity(), PerfilUser.class);
+                i.putExtra("comedor",(Comedor) lvComedores.getItemAtPosition(position));
+                startActivity(i);
+
             }
         });
     }
