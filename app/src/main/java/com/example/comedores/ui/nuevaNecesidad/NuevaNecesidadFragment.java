@@ -95,6 +95,7 @@ public class NuevaNecesidadFragment extends Fragment {
             public void onClick(View view) {
 
                 registrarNecesidad();
+                etDescripcion.setText("");
             }
         });
 

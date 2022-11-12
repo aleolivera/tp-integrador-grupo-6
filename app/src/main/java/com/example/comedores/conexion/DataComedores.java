@@ -326,7 +326,9 @@ public class DataComedores extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String Response) {
-
+        if(mensaje.compareTo("Solicitud de comedor enviado con exito")==0){
+            Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
+        }
 
 
         if (mensaje.compareTo("Reportes cargados") == 0) {
