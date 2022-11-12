@@ -16,8 +16,10 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.comedores.R;
+import com.example.comedores.conexion.DataNecesidades;
 import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Necesidad;
@@ -90,6 +92,7 @@ public class NuevaNecesidadFragment extends Fragment {
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 registrarNecesidad();
             }
         });
@@ -98,13 +101,16 @@ public class NuevaNecesidadFragment extends Fragment {
 
     private void registrarNecesidad() {
         cargarNecesidad();
+        DataNecesidades task = new DataNecesidades(getContext(), (int) usuario.getComedor().getId(), necesidad);
+        task.execute("agregarNecesidad");
     }
 
     private void cargarNecesidad() {
-        Necesidad necesidad = new Necesidad();
+        necesidad = new Necesidad();
         necesidad.setPrioridad(Integer.parseInt(tvNumeroPrioridad.getText().toString()));
         necesidad.setDescripcion(etDescripcion.getText().toString());
         necesidad.setEstado(new Estado(1, ""));
         necesidad.setTipo(new Tipo(spTiposNecesidad.getSelectedItemPosition() + 1, ""));
+
     }
 }
