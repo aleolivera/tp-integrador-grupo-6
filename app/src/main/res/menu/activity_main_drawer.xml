@@ -31,5 +31,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Registrar Comedor"
             />
+        <item
+            android:id="@+id/nav_nueva_necesidad"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Nueva Necesidad"
+            />
     </group>
 </menu>

@@ -110,7 +110,7 @@
                 android:hint="DNI del responsable"
                 android:inputType="number"
                 android:minHeight="48dp" />
-            -->
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp" />
@@ -125,6 +125,15 @@
                 android:hint="Provincia"
                 android:inputType="textPersonName"
                 android:minHeight="48dp" />
+            -->
+            <Spinner
+                android:id="@+id/spProvinciasComedor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:minHeight="48dp"
+                android:contentDescription="Seleccione una provincia"
+                android:autofillHints="state"/>
 
             <Space
                 android:layout_width="match_parent"

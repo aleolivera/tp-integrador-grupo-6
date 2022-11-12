@@ -22,8 +22,7 @@ import com.example.comedores.viewmodels.UsuarioViewModel;
 
 public class HomeAdminComedorFragment extends Fragment {
     private UsuarioViewModel viewModel;
-    private TextView tvNombreComedor,tvProvincia,tvLocalidad,tvDireccion,tvTelefono,tvRenacom,tvResponsable,tvEstado;
-    private Button btnAgregarComedor;
+    private TextView tvNombreComedor,tvProvincia,tvLocalidad,tvDireccion,tvTelefono,tvRenacom,tvResponsable,tvEstado,tvSinComedor;
     public Usuario usuario;
 
     @Override
@@ -42,7 +41,7 @@ public class HomeAdminComedorFragment extends Fragment {
         if(usuario.getComedor()==null)
             ocultarComedor();
         else{
-            ocultarAgregarComedor();
+            tvSinComedor.setVisibility(View.GONE);
             iniciarObserverViewModel();
         }
     }
@@ -56,13 +55,7 @@ public class HomeAdminComedorFragment extends Fragment {
         tvRenacom=(TextView)view.findViewById(R.id.tvRenacom);
         tvResponsable=(TextView)view.findViewById(R.id.tvResponsable);
         tvEstado=(TextView)view.findViewById(R.id.tvEstado);
-        btnAgregarComedor=(Button)view.findViewById(R.id.btnAgregarComedor);
-        btnAgregarComedor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Falta Funcionalidad", Toast.LENGTH_SHORT).show();
-            }
-        });
+        tvSinComedor=(TextView)view.findViewById(R.id.tvSinComedor);
     }
 
     private void ocultarComedor() {
@@ -74,10 +67,6 @@ public class HomeAdminComedorFragment extends Fragment {
         tvRenacom.setVisibility(View.GONE);
         tvResponsable.setVisibility(View.GONE);
         tvEstado.setVisibility(View.GONE);
-    }
-
-    private void ocultarAgregarComedor() {
-        btnAgregarComedor.setVisibility(View.GONE);
     }
 
     private void obtenerUsuario() {
