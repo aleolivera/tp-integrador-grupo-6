@@ -58,7 +58,7 @@ public class PrincipalComedorAdmin extends AppCompatActivity {
         // menu should be considered as top level destinations.
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_principal_admin, R.id.nav_mis_necesidades)
+                R.id.nav_principal_admin, R.id.nav_mis_necesidades, R.id.nav_nueva_necesidad)
                 .setOpenableLayout(drawer)
                 .build();
 

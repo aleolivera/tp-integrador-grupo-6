@@ -41,7 +41,7 @@ public class ListViewNecesidadesHomeAdapter extends ArrayAdapter<Necesidad> {
         TextView tvPrioridad= (TextView)view.findViewById(R.id.tvNecesidadPrioridad);
         TextView tvEstado= (TextView)view.findViewById(R.id.tvNecesidadEstado);
 
-        tvDescripcion.setText("Estado: "+String.valueOf(n.getDescripcion()));
+        tvDescripcion.setText("Descripcion: "+String.valueOf(n.getDescripcion()));
         tvTipo.setText("Tipo: "+n.getTipo());
         tvPrioridad.setText("Prioridad: "+n.getPrioridad());
         tvEstado.setText("Estado: "+n.getEstado().getDescripcion());
