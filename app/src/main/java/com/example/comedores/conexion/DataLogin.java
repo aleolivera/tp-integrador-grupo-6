@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.comedores.Debug;
 import com.example.comedores.PrincipalComedorAdmin;
 import com.example.comedores.PrincipalSupervisor;
+import com.example.comedores.PrincipalUsuario;
 import com.example.comedores.PrincipalUsuarioFinal;
 import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Estado;
@@ -172,7 +173,7 @@ public class DataLogin extends AsyncTask<String,Void,String> {
         Intent intent;
         switch(usuario.getTipo()){
             case 1:
-                intent= new Intent(context, Debug.class);
+                intent= new Intent(context, PrincipalUsuario.class);
                 break;
             case 2:
                 intent= new Intent(context, PrincipalComedorAdmin.class);
