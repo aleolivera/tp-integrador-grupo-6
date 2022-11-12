@@ -22,7 +22,6 @@ import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnDebug;
     private EditText etCorreo;
     private EditText etPassword;
     private Button btnLogin;
@@ -51,20 +50,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnDebug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GoDebug();
-            }
-        });
 
     }
 
-    private void GoDebug() {
-        Intent i = new Intent(this, Debug.class);
-        startActivity(i);
-        finish();
-    }
 
     private void Login() {
         String mensaje = validarControles();
@@ -96,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cargarUI() {
-        btnDebug = (Button) findViewById(R.id.btnDebug);
         etCorreo = (EditText) findViewById(R.id.etCorreo);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);

@@ -141,7 +141,8 @@ public class DataComedores extends AsyncTask<String,Void,String> {
     private void listarComedores() {
 
         String query="SELECT * " +
-                "FROM comedores ";
+                "FROM comedores "
+                 + "WHERE estado_id = 2";
 
         try{
             Class.forName(DataDB.DRIVER);
