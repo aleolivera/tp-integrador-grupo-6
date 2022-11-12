@@ -18,7 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.comedores.conexion.DataBuscarComedor;
 import com.example.comedores.conexion.DataComedores;
 import com.example.comedores.conexion.DataEstados;
 import com.example.comedores.conexion.DataReporte;
@@ -37,7 +39,9 @@ public class BuscarComedor extends Fragment {
     private ComedoresViewModel viewModel;
     private Comedor comedor;
     private ListView lvComedores;
+    private Button btnBuscar;
     private List<Comedor> listaComedores;
+    private EditText etBuscar;
 
     public BuscarComedor() {
         // Required empty public constructor
@@ -46,12 +50,8 @@ public class BuscarComedor extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View viewRoot = inflater.inflate(R.layout.fragment_buscar_comedor, container, false);
         view = inflater.inflate(R.layout.fragment_buscar_comedor, container, false);
-
         viewModel = new ViewModelProvider(requireActivity()).get(ComedoresViewModel.class);
-
-
         return view;
     }
 
@@ -61,8 +61,6 @@ public class BuscarComedor extends Fragment {
         comedor = viewModel.getData().getValue();
         cargarUI();
         iniciarListView();
-
-
 
     }
 
@@ -88,8 +86,24 @@ public class BuscarComedor extends Fragment {
     }
 
     private void cargarUI() {
-
         lvComedores = (ListView) view.findViewById(R.id.lvComedores);
+        btnBuscar=(Button)view.findViewById(R.id.btnBuscarComedor2);
+        etBuscar=(EditText) view.findViewById(R.id.etBuscarComedor);
+
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String buscar= etBuscar.getText().toString();
+                if(buscar.compareTo("")==0)
+                    Toast.makeText(getContext(), "texto vacio", Toast.LENGTH_SHORT).show();
+                else
+                    buscarComedor(buscar);
+            }
+        });
+    }
+    private void buscarComedor(String buscar){
+        DataBuscarComedor task= new DataBuscarComedor(getContext(),listaComedores,lvComedores);
+        task.execute(buscar);
     }
 
 }
