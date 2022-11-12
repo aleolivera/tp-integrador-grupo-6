@@ -12,7 +12,9 @@ import com.example.comedores.adapters.ListViewComedoresAdapter;
 import com.example.comedores.adapters.ListViewReportesAdapter;
 import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Estado;
+import com.example.comedores.entidades.Necesidad;
 import com.example.comedores.entidades.Reporte;
+import com.example.comedores.entidades.Tipo;
 import com.example.comedores.entidades.Usuario;
 
 import java.security.AccessControlContext;
@@ -285,6 +287,40 @@ public class DataComedores extends AsyncTask<String,Void,String> {
             mensaje="Error al buscar comedor";
         }
         return true;
+    }
+    private void cargarNecesidades() {
+        String query =
+                "SELECT n.id,n.tipo_id,t.descripcion,n.estado_id,e.descripcion,n.descripcion,n.prioridad FROM necesidades n " +
+                        "INNER JOIN comedores_x_necesidades cxn ON n.id=cxn.necesidad_id " +
+                        "INNER JOIN tipos_necesidad t ON t.id=n.tipo_id " +
+                        "INNER JOIN estados_necesidad e ON e.id=n.estado_id " +
+                        "WHERE comedor_id=?";
+
+        try {
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL, DataDB.USER, DataDB.PASS);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setLong(1, comedor.getId());
+            ResultSet rs = pst.executeQuery();
+            comedor.setListaNecesidades(new ArrayList<Necesidad>());
+
+            while (rs.next()) {
+                Necesidad n = new Necesidad(
+                        rs.getLong(1),
+                        rs.getString(6),
+                        new Tipo(rs.getInt(2), rs.getString(3)),
+                        new Estado(rs.getInt(4), rs.getString(5)),
+                        rs.getInt(7)
+                );
+                comedor.getListaNecesidades().add(n);
+            }
+            rs.close();
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "Error al cargar las necesidades";
+        }
     }
 
     @Override
