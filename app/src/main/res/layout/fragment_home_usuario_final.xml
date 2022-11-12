@@ -13,12 +13,50 @@
         android:id="@+id/tvTituloPrincipalUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home usuario final"
-        android:textSize="30dp"
+        android:text="Home"
+        android:textColor="#673AB7"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.438" />
+        app:layout_constraintVertical_bias="0.065" />
+
+    <Spinner
+        android:id="@+id/spFiltro"
+        android:layout_width="199dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloPrincipalUsuario" />
+
+    <TextView
+        android:id="@+id/tvFiltro"
+        android:layout_width="64dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="36dp"
+        android:text="Filtro"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/spFiltro"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloPrincipalUsuario" />
+
+    <ListView
+        android:id="@+id/lvNecesidadesHome"
+        android:layout_width="392dp"
+        android:layout_height="431dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.848" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

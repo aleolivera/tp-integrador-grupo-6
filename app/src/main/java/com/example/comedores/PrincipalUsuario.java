@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
+import com.example.comedores.entidades.Usuario;
+import com.example.comedores.viewmodels.UsuarioViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,10 +27,15 @@ public class PrincipalUsuario extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityPrincipalUsuarioBinding binding;
+    private Usuario usuario;
+    private UsuarioViewModel usuarioViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        usuario= (Usuario) getIntent().getSerializableExtra("usuario");
+        cargarViewModel();
 
         binding = ActivityPrincipalUsuarioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -50,6 +59,8 @@ public class PrincipalUsuario extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_principal_usuario);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        cargarHeader(navigationView.getHeaderView(0));
     }
 
     @Override
@@ -80,5 +91,15 @@ public class PrincipalUsuario extends AppCompatActivity {
         Intent i= new Intent(this,MainActivity.class);
         startActivity(i);
         finish();
+    }
+    private void cargarViewModel(){ //Carga el usuario en el activity para que sea accesible para los fragments
+        usuarioViewModel=new ViewModelProvider(this).get(UsuarioViewModel.class);
+        usuarioViewModel.setData(usuario);
+    }
+    private void cargarHeader(View header) {
+        TextView tvNdHeaderTitulo= (TextView)header.findViewById(R.id.tvNdHeaderTitulo);
+        TextView tvNdHeaderSubtitulo=(TextView)header.findViewById(R.id.tvNdHeaderSubtitulo);
+        tvNdHeaderTitulo.setText("Bienvenido!");
+        tvNdHeaderSubtitulo.setText(usuario.getEmail());
     }
 }

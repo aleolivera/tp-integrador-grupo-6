@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,47 +9,47 @@
         android:layout_height="20dp" />
 
     <TextView
-        android:id="@+id/tvIdSolicitud"
+        android:id="@+id/tvNecesidadDescripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="ID: 1"
-        android:textColor="#3B883E"
+        android:text="Descripcion:"
+        android:textColor="#4CAF50"
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/tvRenacom"
+        android:id="@+id/tvNecesidadTipo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Renacom: 12341234"
+        android:text="Tipo:"
         android:textColor="#3F51B5"
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/tvNombreComedor"
+        android:id="@+id/tvNecesidadPrioridad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Comedor: Comedor de cosme"
-        android:textColor="#12578E"
+        android:text="Prioridad:"
+        android:textColor="#2196F3"
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/tvFechaSolicitud"
+        android:id="@+id/tvNecesidadEstado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Fecha: 2020-12-20"
-        android:textColor="#6E5A9C"
+        android:text="Estado:"
+        android:textColor="#2196F3"
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/tvPrecionar"
+        android:id="@+id/tvPresionarNecesidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -63,5 +61,4 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="20dp" />
-
 </LinearLayout>

@@ -15,11 +15,11 @@
     <fragment
         android:id="@+id/nav_homeUsuarioFinalFragment"
         android:name="com.example.comedores.ui.homeUsuarioFinal.HomeUsuarioFinalFragment"
-        android:label="fragment_home_usuario_final"
+        android:label="Home"
         tools:layout="@layout/fragment_home_usuario_final" />
     <fragment
         android:id="@+id/nav_buscarComedor"
         android:name="com.example.comedores.BuscarComedor"
-        android:label="fragment_buscar_comedor"
+        android:label="Buscar Comedor"
         tools:layout="@layout/fragment_buscar_comedor" />
 </navigation>
