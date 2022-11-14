@@ -103,6 +103,22 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/txtLblEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="asdasd@gmail.com"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/txtLblResponsable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

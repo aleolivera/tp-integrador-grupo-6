@@ -65,10 +65,6 @@
             android:label="@string/title_activity_principal_comedor_admin"
             android:theme="@style/Theme.Comedores.NoActionBar" />
         <activity
-            android:name=".PrincipalUsuarioFinal"
-            android:exported="false"
-            android:title="asd" />
-        <activity
             android:name=".PrincipalSupervisor"
             android:exported="false" />
         <activity

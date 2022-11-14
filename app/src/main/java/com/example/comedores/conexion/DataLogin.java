@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.example.comedores.Debug;
 import com.example.comedores.PrincipalComedorAdmin;
 import com.example.comedores.PrincipalSupervisor;
 import com.example.comedores.PrincipalUsuario;
-import com.example.comedores.PrincipalUsuarioFinal;
 import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Necesidad;

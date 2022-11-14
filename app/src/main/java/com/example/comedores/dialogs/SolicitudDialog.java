@@ -1,4 +1,4 @@
-package com.example.comedores;
+package com.example.comedores.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.comedores.R;
 import com.example.comedores.conexion.DataSolicitudes;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Solicitud;

@@ -32,8 +32,7 @@ import com.example.comedores.viewmodels.UsuarioViewModel;
 public class NuevoComedorFragment extends Fragment {
 
     private EditText etRenacom, etNombreComedor, etNombreResponsable,
-            etApellidoResponsable, etProvincia ,
-        etLocalidad, etDireccion, etTelefono;
+            etApellidoResponsable, etLocalidad, etDireccion, etTelefono;
     private Button btnRegistrar;
     private Spinner spProvincias;
     private UsuarioViewModel viewModel;
@@ -70,7 +69,6 @@ public class NuevoComedorFragment extends Fragment {
         etNombreComedor=(EditText) view.findViewById(R.id.etNombreComedor);
         etNombreResponsable=(EditText) view.findViewById(R.id.etNombreResponsable);
         etApellidoResponsable=(EditText) view.findViewById(R.id.etApellidoResponsable);
-        //etProvincia=(EditText) view.findViewById(R.id.etProvincia);
         etLocalidad=(EditText)view.findViewById(R.id.etLocalidadRegistrarComedor);
         etDireccion=(EditText)view.findViewById(R.id.etDireccionAgregarComedor);
         etTelefono=(EditText)view.findViewById(R.id.etTelefonoAgregarComedor);
@@ -84,7 +82,7 @@ public class NuevoComedorFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 registrarComedor();
-                buscarComedorPorIdUsuario();
+                //buscarComedorPorIdUsuario();
                 usuario.setComedor(comedor);
                 viewModel.setData(usuario);
                 volverAHome();
@@ -148,20 +146,13 @@ public class NuevoComedorFragment extends Fragment {
             if (!Validacion.validarString(etTelefono.getText().toString(), Validacion.NUMEROS))
                 mensaje = "Telefono: solo caracteres numericos";
         }
-        /*
-        etDNI=(EditText) view.findViewById(R.id.etDNI);
-        etProvincia=(EditText) view.findViewById(R.id.etProvincia);
-        etLocalidad=(EditText)view.findViewById(R.id.etLocalidadRegistrarComedor);
-        etDireccion=(EditText)view.findViewById(R.id.etTelefonoAgregarComedor);
-        etEmail=(EditText)view.findViewById(R.id.etCorreoElectronicoAgregarComedor);
-        etTelefono=(EditText)view.findViewById(R.id.etTelefonoAgregarComedor);
-        * */
         return mensaje;
     }
     private void volverAHome(){
         Intent i= new Intent(getActivity(), PrincipalComedorAdmin.class);
         i.putExtra("usuario",usuario);
         startActivity(i);
+
     }
     private void buscarComedorPorIdUsuario(){
         DataComedores task= new DataComedores(comedor,getContext());

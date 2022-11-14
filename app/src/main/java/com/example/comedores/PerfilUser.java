@@ -11,7 +11,8 @@ import com.example.comedores.entidades.Usuario;
 
 public class PerfilUser extends AppCompatActivity {
 
-    Comedor comedor;
+    private Comedor comedor;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class PerfilUser extends AppCompatActivity {
         this.setTitle("Perfil");
 
         comedor = (Comedor) getIntent().getSerializableExtra("comedor");
-
+        email = getIntent().getStringExtra("email");
 
         TextView tvComedorNombre = (TextView) findViewById(R.id.tvComedorNombre);
         TextView tvRenacomNumero = (TextView) findViewById(R.id.tvRenacomNumero);
@@ -30,6 +31,7 @@ public class PerfilUser extends AppCompatActivity {
         TextView txtLocalidad = (TextView) findViewById(R.id.txtLocalidad);
         TextView txtTelefono = (TextView) findViewById(R.id.txtTelefono);
         TextView txtResponsable = (TextView) findViewById(R.id.txtResponsable);
+        TextView txtEmail = (TextView) findViewById(R.id.txtEmail);
 
         tvComedorNombre.setText(comedor.getNombre());
         tvRenacomNumero.setText("# ReNaCom: " + String.valueOf(comedor.getRenacom()));
@@ -37,7 +39,7 @@ public class PerfilUser extends AppCompatActivity {
         txtLocalidad.setText(comedor.getLocalidad());
         txtTelefono.setText(comedor.getTelefono());
         txtResponsable.setText(comedor.getNombreResponsable() + " " + comedor.getApellidoResponsable());
-
+        txtEmail.setText(email);
     }
 
 

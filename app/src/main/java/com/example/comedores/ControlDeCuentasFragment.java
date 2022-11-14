@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -13,13 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.example.comedores.adapters.ListViewSolicitudesAdapter;
 import com.example.comedores.conexion.DataSolicitudes;
+import com.example.comedores.dialogs.SolicitudDialog;
 import com.example.comedores.entidades.Comedor;
 import com.example.comedores.entidades.Solicitud;
 import com.example.comedores.entidades.Usuario;

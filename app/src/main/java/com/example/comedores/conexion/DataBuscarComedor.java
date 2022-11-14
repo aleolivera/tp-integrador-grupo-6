@@ -1,10 +1,12 @@
 package com.example.comedores.conexion;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.comedores.PerfilUser;
 import com.example.comedores.R;
 import com.example.comedores.adapters.ListViewComedoresAdapter;
 import com.example.comedores.entidades.Comedor;
@@ -22,18 +24,62 @@ public class DataBuscarComedor extends AsyncTask<String,Void,String> {
     private List<Comedor>listaComedor;
     private ListView lvComedores;
     String mensaje="";
+    String email="";
+    private Comedor comedor;
 
     public DataBuscarComedor(Context context, List<Comedor> listaComedor, ListView lvComedores) {
         this.context = context;
         this.listaComedor = listaComedor;
         this.lvComedores = lvComedores;
     }
+    public DataBuscarComedor(Context context, Comedor comedor) {
+        this.context = context;
+        this.comedor = comedor;
+    }
 
     @Override
     protected String doInBackground(String... strings) {
-        buscarComedor(strings[0]);
+        switch (strings[0]){
+            case "buscarComedores":
+                buscarComedor(strings[1]);
+                break;
+            case "irAComedor":
+                buscarEmail();
+                break;
+            default:
+                break;
+        }
+
+
         return mensaje;
     }
+
+    private void buscarEmail() {
+        String query="SELECT u.email FROM usuarios u"+
+                " INNER JOIN comedores c ON c.usuario_id=u.id"+
+                " WHERE c.id=?";
+        try{
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL,DataDB.USER,DataDB.PASS);
+            PreparedStatement pst= con.prepareStatement(query);
+            pst.setLong(1,comedor.getId());
+            ResultSet rs= pst.executeQuery();
+
+            if(rs.next()) {
+                email = rs.getString(1);
+                mensaje="irAComedor";
+            }
+            else
+                email="";
+            rs.close();
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            mensaje="Error al cargar las necesidades";
+        }
+    }
+
 
     private void buscarComedor(String buscar){
         listaComedor= new ArrayList<Comedor>();
@@ -74,11 +120,20 @@ public class DataBuscarComedor extends AsyncTask<String,Void,String> {
     }
     @Override
     protected void onPostExecute(String s) {
-        if(listaComedor.size()<1){
-            Toast.makeText(context, "No se encontraron resultados", Toast.LENGTH_SHORT).show();
+        if(mensaje.compareTo("irAComedor")==0){
+            Intent i = new Intent(context, PerfilUser.class);
+            i.putExtra("comedor",comedor);
+            i.putExtra("email",email);
+            context.startActivity(i);
         }
-        ListViewComedoresAdapter adapter = new ListViewComedoresAdapter(context, R.layout.item_row_comedores, listaComedor);
-        lvComedores.setAdapter(adapter);
+        if(mensaje.compareTo("")==0){
+            if(listaComedor.size()<1){
+                Toast.makeText(context, "No se encontraron resultados", Toast.LENGTH_SHORT).show();
+            }
+            ListViewComedoresAdapter adapter = new ListViewComedoresAdapter(context, R.layout.item_row_comedores, listaComedor);
+            lvComedores.setAdapter(adapter);
+        }
+
     }
 
 }

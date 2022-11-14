@@ -1,6 +1,5 @@
 package com.example.comedores;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +20,7 @@ import android.widget.Spinner;
 import com.example.comedores.conexion.DataEstados;
 import com.example.comedores.conexion.DataReporte;
 import com.example.comedores.conexion.DataTipos;
+import com.example.comedores.dialogs.ReporteDialog;
 import com.example.comedores.entidades.Estado;
 import com.example.comedores.entidades.Reporte;
 import com.example.comedores.entidades.Tipo;

@@ -52,6 +52,7 @@ public class BuscarComedor extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_buscar_comedor, container, false);
         viewModel = new ViewModelProvider(requireActivity()).get(ComedoresViewModel.class);
+
         return view;
     }
 
@@ -59,6 +60,7 @@ public class BuscarComedor extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         comedor = viewModel.getData().getValue();
+
         cargarUI();
         iniciarListView();
 
@@ -69,11 +71,8 @@ public class BuscarComedor extends Fragment {
         lvComedores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent i = new Intent(getActivity(), PerfilUser.class);
-                i.putExtra("comedor",(Comedor) lvComedores.getItemAtPosition(position));
-                startActivity(i);
-
+                comedor=(Comedor)lvComedores.getItemAtPosition(position);
+                irAComedor();
             }
         });
     }
@@ -103,7 +102,11 @@ public class BuscarComedor extends Fragment {
     }
     private void buscarComedor(String buscar){
         DataBuscarComedor task= new DataBuscarComedor(getContext(),listaComedores,lvComedores);
-        task.execute(buscar);
+        task.execute("buscarComedores",buscar);
+    }
+    private void irAComedor(){
+        DataBuscarComedor task= new DataBuscarComedor(getContext(),comedor);
+        task.execute("irAComedor");
     }
 
 }

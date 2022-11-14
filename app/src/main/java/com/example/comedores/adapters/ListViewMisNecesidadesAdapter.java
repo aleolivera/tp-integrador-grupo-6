@@ -46,7 +46,15 @@ public class ListViewMisNecesidadesAdapter extends ArrayAdapter<Necesidad>  {
         tvTipo.setText("Tipo: "+n.getTipo());
         tvPrioridad.setText("Prioridad: "+n.getPrioridad());
         tvEstado.setText("Estado: "+n.getEstado().getDescripcion());
-
+        
+        if(n.getEstado().getId()==1)
+            tvEstado.setTextColor(view.getResources().getColor(R.color.necesidad_pendiente));
+        else {
+            tvEstado.setTextColor(view.getResources().getColor(R.color.necesidad_satisfecha));
+            tvDescripcion.setTextColor(view.getResources().getColor(R.color.deshabilitado));
+            tvTipo.setTextColor(view.getResources().getColor(R.color.deshabilitado));
+            tvPrioridad.setTextColor(view.getResources().getColor(R.color.deshabilitado));
+        }
         return view;
     }
 

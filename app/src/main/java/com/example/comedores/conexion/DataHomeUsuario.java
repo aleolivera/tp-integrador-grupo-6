@@ -31,6 +31,7 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
     private long idNecesidad;
     private List<Necesidad> listaNecesidades;
     private String mensaje;
+    private String email;
 
     public DataHomeUsuario(Context context, ListView lvNecesidades, List<Necesidad> listaNecesidades) {
         this.context = context;
@@ -53,6 +54,7 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
 
             case "buscarComedorPorIdNecesidad":
                 buscarComedorPorIdNecesidad();
+                buscarEmail();
                 break;
 
             case "listarNecesidadesPorLocalidad":
@@ -93,7 +95,6 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
                 comedor.setTelefono(rs.getString(10));
                 comedor.setNombreResponsable(rs.getString(11));
                 comedor.setApellidoResponsable(rs.getString(12));
-                mensaje="irAComedor";
             }
             else
                 mensaje = "No se encontro Comedor";
@@ -114,7 +115,8 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
                 " INNER JOIN tipos_necesidad t ON t.id=n.tipo_id"+"" +
                 " INNER JOIN comedores_x_necesidades cn ON cn.necesidad_id=n.id"+
                 " INNER JOIN comedores c ON c.id=cn.comedor_id"+
-                " WHERE c.localidad=? ORDER BY n.prioridad DESC";
+                " WHERE c.localidad=? AND e.id=1"+
+                " ORDER BY n.prioridad DESC";
 
         try{
             Class.forName(DataDB.DRIVER);
@@ -181,19 +183,45 @@ public class DataHomeUsuario extends AsyncTask<String,Void,String> {
             mensaje="Error al cargar las necesidades";
         }
     }
+    private void buscarEmail(){
+        String query="SELECT u.email FROM usuarios u"+
+                " INNER JOIN comedores c ON c.usuario_id=u.id"+
+                " WHERE c.id=?";
+        try{
+            Class.forName(DataDB.DRIVER);
+            Connection con = DriverManager.getConnection(DataDB.URLMYSQL,DataDB.USER,DataDB.PASS);
+            PreparedStatement pst= con.prepareStatement(query);
+            pst.setLong(1,comedor.getId());
+            ResultSet rs= pst.executeQuery();
 
+            if(rs.next()) {
+                email = rs.getString(1);
+                mensaje="irAComedor";
+            }
+            else
+                email="";
+            rs.close();
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            mensaje="Error al cargar las necesidades";
+        }
+
+    }
     @Override
     protected void onPostExecute(String mensaje) {
         if (mensaje.compareTo("cargarListView") == 0) {
             ListViewNecesidadesHomeAdapter adapter = new ListViewNecesidadesHomeAdapter(context, R.layout.item_row_necesidades, listaNecesidades);
             lvNecesidades.setAdapter(adapter);
             if(listaNecesidades.size()<1)
-                Toast.makeText(context, "No se encontraron publicaciones", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "No se encontraron publicaciones", Toast.LENGTH_LONG).show();
         }
 
         if(mensaje.compareTo("irAComedor")==0){
             Intent i = new Intent(context, PerfilUser.class);
             i.putExtra("comedor",comedor);
+            i.putExtra("email", email);
             context.startActivity(i);
         }
     }
