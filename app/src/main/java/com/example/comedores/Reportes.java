@@ -136,6 +136,7 @@ public class Reportes extends Fragment {
         spnTipo = (Spinner) view.findViewById(R.id.spTipoReporte);
         DataTipos taskTipos = new DataTipos(spnTipo, getContext());
         taskTipos.execute("2");//Obtengo los tipos de reporte
+        spnTipo.setVisibility(View.INVISIBLE);
 
         spnEstado = (Spinner) view.findViewById(R.id.spEstadoReporte);
         DataEstados taskEstado = new DataEstados(spnEstado, getContext());

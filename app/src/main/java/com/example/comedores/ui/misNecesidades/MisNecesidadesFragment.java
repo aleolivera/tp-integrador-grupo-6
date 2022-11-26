@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.example.comedores.R;
 import com.example.comedores.adapters.ListViewMisNecesidadesAdapter;
 import com.example.comedores.conexion.DataComedores;
 import com.example.comedores.conexion.DataNecesidades;
+import com.example.comedores.dialogs.MisNecesidadesDialog;
 import com.example.comedores.entidades.Necesidad;
 import com.example.comedores.entidades.Usuario;
 import com.example.comedores.viewmodels.UsuarioViewModel;
@@ -28,6 +30,7 @@ public class MisNecesidadesFragment extends Fragment {
 
     private UsuarioViewModel viewModel;
     private ListView lvMisNecesidades;
+    private Button btnActualizar;
     private List<Necesidad> listaNecesidades;
     private Usuario usuario;
 
@@ -52,10 +55,23 @@ public class MisNecesidadesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Necesidad n = (Necesidad)lvMisNecesidades.getItemAtPosition(i);
-                DataNecesidades task = new DataNecesidades(getContext(), n);
-                task.execute("modificarNecesidad");
+                cambiarEstado(n);
                 cargarListView();
             }
+        });
+        lvMisNecesidades.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Necesidad n =(Necesidad)lvMisNecesidades.getItemAtPosition(position);
+                MisNecesidadesDialog dialog= new MisNecesidadesDialog(n.getId(),usuario.getComedor().getId(),lvMisNecesidades);
+                dialog.show(getActivity().getSupportFragmentManager(),"mis necesidades dialog");
+                return false;
+            }
+        });
+
+        btnActualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { cargarListView(); }
         });
 
     }
@@ -72,9 +88,12 @@ public class MisNecesidadesFragment extends Fragment {
 
     private void cargarUI(View view) {
         lvMisNecesidades = (ListView) view.findViewById(R.id.lvMisNecesidades);
+        btnActualizar= (Button) view.findViewById(R.id.btnActualizarLv);
     }
 
-    private void cambiarEstado() {
-
+    private void cambiarEstado(Necesidad n){
+        DataNecesidades task = new DataNecesidades(getContext(), n);
+        task.execute("modificarNecesidad");
     }
+
 }

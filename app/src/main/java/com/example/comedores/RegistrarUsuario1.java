@@ -84,6 +84,8 @@ public class RegistrarUsuario1 extends AppCompatActivity {
                 mensaje = "Email: formato no valido";
             if (!Validacion.validarString(dni, Validacion.NUMEROS))
                 mensaje = "DNI: solo caracteres numericos";
+            if (dni.length()<7)
+                mensaje = "DNI: no menos de 7 caracteres";
             if (!Validacion.validarString(pass1, Validacion.SIN_ESPACIOS))
                 mensaje = "Contraseña: no use espacios en blanco";
             if(pass1.compareTo(pass2)!=0)

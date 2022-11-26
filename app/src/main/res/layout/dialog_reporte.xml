@@ -22,6 +22,8 @@
             android:text="Reporte"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textColor="@color/alert"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +40,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:text="Usuario Alta: "
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvReporteDialogT" />
 
@@ -50,6 +53,7 @@
                 android:layout_marginRight="12dp"
                 android:gravity="right"
                 android:text="Fecha Alta:"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/spTipoReporte2"
                 app:layout_constraintTop_toBottomOf="@+id/etRespuestaR" />
@@ -64,6 +68,7 @@
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
+            android:backgroundTint="@color/alert"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvIdReportado2" />
 
@@ -90,7 +95,8 @@
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:text="Dar de baja"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:backgroundTint="@color/alert"/>
 
         <TextView
             android:id="@+id/tvTipo"
@@ -110,6 +116,7 @@
             android:gravity="start|top"
             android:hint="Sin Repuesta"
             android:inputType="textMultiLine"
+            android:backgroundTint="@color/alert"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUsuarioAltaR" />
 
@@ -119,6 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
+            android:buttonTint="@color/alert"
             android:text="Resuelto"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etDescripcionR" />

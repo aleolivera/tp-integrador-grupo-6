@@ -55,8 +55,8 @@ public class ReportesAlta extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ReportarAlta();
-
-
+                etReporteDesc.setText("");
+                Volver();
             }
         });
     }

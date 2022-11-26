@@ -3,22 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp"/>
     <TextView
         android:id="@+id/tvNombreComedorDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/purple_comedores"
+        android:text="Nombre del comedor" />
 
     <TextView
         android:id="@+id/tvRenacomDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/purple_700"
+        android:text="Renacom" />
 
     <TextView
         android:id="@+id/tvIdSolicitudDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textColor="@color/purple_700"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="ID de solicitud" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp"/>
 </LinearLayout>

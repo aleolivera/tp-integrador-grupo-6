@@ -13,6 +13,18 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="ID: 1"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/alert"/>
+
+    <TextView
+        android:id="@+id/tvEstadoReporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Estado: En proceso"
+        android:textStyle="bold"
         android:textSize="20dp" />
 
     <TextView
@@ -22,8 +34,18 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="Fecha: 2020-12-20"
+        android:textStyle="bold"
         android:textSize="20dp" />
 
+    <TextView
+        android:id="@+id/tvUsuarioAltaReporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Usuario: leoxgerez@gmail.com"
+        android:textStyle="bold"
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/tvTipoReporte"
         android:layout_width="wrap_content"
@@ -34,30 +56,13 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/tvEstadoReporte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="Estado: En proceso"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/tvUsuarioAltaReporte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="Uusario: leoxgerez@gmail.com"
-        android:textSize="20dp" />
-
-    <TextView
         android:id="@+id/tvPresionar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+
         android:text="Presione para ver detalles"
         android:textSize="15dp" />
 

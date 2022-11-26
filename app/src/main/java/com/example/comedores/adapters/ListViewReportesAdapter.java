@@ -50,6 +50,15 @@ public class ListViewReportesAdapter extends ArrayAdapter<Reporte> {
         tvTipoReporte.setText("Tipo: " + String.valueOf(r.getTipo().getDescripcion()));
         tvUsuarioAltaReporte.setText("Usuario: " + String.valueOf(r.getUsuario().getEmail()));
 
+        switch (r.getEstado().getId()){
+            case 1:
+                tvEstadoReporte.setTextColor(view.getResources().getColor(R.color.alert));
+                break;
+            default:
+                tvEstadoReporte.setTextColor(view.getResources().getColor(R.color.estado_habilitado));
+                break;
+        }
+
         return view;
     }
 }

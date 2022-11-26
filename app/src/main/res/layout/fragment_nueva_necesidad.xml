@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:text="Nueva necesidad"
             android:textAlignment="center"
-            android:textSize="21sp" />
+            android:textColor="@color/purple_comedores"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
@@ -112,7 +114,9 @@
             android:id="@+id/btnAgregarNecesidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="agregar necesidad" />
+            android:text="agregar necesidad"
+            android:backgroundTint="@color/purple_comedores"
+            />
 
     </LinearLayout>
 

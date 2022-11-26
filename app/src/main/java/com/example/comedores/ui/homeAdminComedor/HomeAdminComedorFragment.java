@@ -86,7 +86,15 @@ public class HomeAdminComedorFragment extends Fragment {
                 tvRenacom.setText("Renacom: "+String.valueOf(usuario.getComedor().getRenacom()));
                 tvResponsable.setText("Responsable: "+usuario.getComedor().getNombreResponsable()+" "+usuario.getComedor().getApellidoResponsable());
                 tvEstado.setText("Estado: "+usuario.getComedor().getEstado().getDescripcion());
+                colorearEstado();
             }
         });
+    }
+
+    private void colorearEstado(){
+        if(usuario.getComedor().getEstado().getId()==2)
+            tvEstado.setTextColor(getResources().getColor(R.color.estado_habilitado));
+        else
+            tvEstado.setTextColor(getResources().getColor(R.color.alert));
     }
 }

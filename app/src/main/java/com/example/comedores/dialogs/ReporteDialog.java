@@ -119,6 +119,7 @@ public class ReporteDialog extends AppCompatDialogFragment {
 
             chkResuelto.setEnabled(false);
             chkResuelto.setClickable(false);
+            chkResuelto.setVisibility(View.GONE);
 
             btnBaja.setVisibility(View.INVISIBLE);
         }

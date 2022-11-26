@@ -48,6 +48,8 @@ public class DataNecesidades extends AsyncTask<String, Void, String> {
         return mensaje;
     }
 
+
+
     private void agregarNecesidad() {
         String query = "INSERT INTO `necesidades` (`tipo_id`, `estado_id`, `descripcion`, `prioridad`) \n" +
                 "VALUES (?,?,?,?)";
@@ -134,7 +136,7 @@ public class DataNecesidades extends AsyncTask<String, Void, String> {
         super.onPostExecute(s);
 
         if(mensaje.compareTo("")!=0){
-            Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
         }
     }
 }

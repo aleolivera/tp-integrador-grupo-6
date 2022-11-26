@@ -93,7 +93,16 @@ public class NuevoComedorFragment extends Fragment {
     private void cargarDatosPorDefecto() {
         etNombreResponsable.setText(usuario.getNombre());
         etApellidoResponsable.setText(usuario.getApellido());
-        //etDNI.setText(usuario.getDni());
+        etLocalidad.setText(usuario.getLocalidad());
+        spProvincias.setSelection(buscarIndice(usuario.getProvincia()));
+    }
+
+    private int buscarIndice(String p) {
+        for (int i=0;i<provincias.length;i++) {
+            if(provincias[i].compareTo(p)==0)
+                return i;
+        }
+        return 0;
     }
 
     private void cargarComedor() {

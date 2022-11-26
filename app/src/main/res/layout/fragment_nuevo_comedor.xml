@@ -26,19 +26,23 @@
                 android:layout_height="wrap_content"
                 android:text="Registrar comedor"
                 android:textAlignment="center"
-                android:textSize="21sp" />
-
+                android:textColor="@color/purple_comedores"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingrese los datos del comedor"
                 android:textAlignment="center"
-                android:textSize="17sp" />
-
+                android:textSize="17sp"
+                android:textStyle="bold"/>
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="15dp" />
 
             <EditText
                 android:id="@+id/etRenacom"
@@ -160,7 +164,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:text="@string/registrarse" />
+                android:text="@string/registrarse"
+                android:backgroundTint="@color/purple_comedores"/>
 
             <Space
                 android:layout_width="match_parent"

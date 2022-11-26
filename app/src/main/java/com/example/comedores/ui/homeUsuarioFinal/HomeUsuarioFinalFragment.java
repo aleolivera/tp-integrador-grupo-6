@@ -90,6 +90,7 @@ public class HomeUsuarioFinalFragment extends Fragment {
                 irAPerfilComedor(n.getId());
             }
         });
+
     }
     private void cargarListView(String mostrar) {
         DataHomeUsuario task= new DataHomeUsuario(getContext(),lvNecesidades,listaNecesidades);
